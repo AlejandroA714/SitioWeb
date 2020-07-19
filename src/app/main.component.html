@@ -1,0 +1,46 @@
+<nav [hidden]=!LOGGED_IN class="navbar navbar-expand-lg p-3 px-md-4 mb-3 bg-white border-bottom navbar-light shadow-sm">
+    <img src="assets/images/navbar-brand.png" class="navbar-brand p-0 m-0 mr-3" height="25" width="25" alt="">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Sistema SCADA</h5>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Archivo
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="MenubtnAgregarProyectoModal">Nuevo</a>
+                    <button class="dropdown-item" data-toggle="modal" data-target="#AbrirModal">Abrir</button>
+                    <a class="dropdown-item" id="MenubtnGuardarProyecto">Guardar</a>
+                    <a class="dropdown-item" id="MenubtnGuardarComoProyecto">Guardar como</a>
+                    <a class="dropdown-item" id="MenubtnCerrar">Cerrar</a>
+                    <a class="dropdown-item" id="MenubtnEliminar">Eliminar</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item btn btn-danger" id="MenubtnCerrarSession">Cerrar Sesión</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Configuraciones
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="MenubtnDispositivos"> Dispositivos</a>
+                    <a class="dropdown-item" id="MenubtnUsuarios">Usuarios</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#CuentaModal">Cuenta</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reportes
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" id="MenubtnReportes" >Reportes por fecha</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>
