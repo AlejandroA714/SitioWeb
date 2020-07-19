@@ -1,0 +1,26 @@
+
+<div class="text-center aling-middle">
+    
+    <form [formGroup]="FORM_LOGIN" class="form-signin" (submit) = submitEvent($event)>
+
+        <img class="mb-4" src="assets/images/UDB-Logo.png" alt="" width="72" height="72">
+
+        <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
+        
+        <input type="text" class="form-control" [class.is-invalid]="FORM_LOGIN.get('USER_NAME').touched && FORM_LOGIN.get('USER_NAME').invalid" placeholder="administrador.scada" formControlName="USER_NAME" autofocus>
+        
+        <input type="password" class="form-control" [class.is-invalid]="FORM_LOGIN.get('USER_PASSWORD').touched && FORM_LOGIN.get('USER_PASSWORD').invalid" placeholder="***********" formControlName="USER_PASSWORD">
+
+        <ngb-alert type="danger" [dismissible]="false" [hidden]=!ERROR>
+            <strong>¡Error!</strong> {{ ERROR_MESSAGE }}
+          </ngb-alert>
+        
+        <button [disabled]=!FORM_LOGIN.valid type="submit" class="btn btn-lg btn-primary btn-block" [hidden]=PERFORMING_TRANSACTION ngbButton>Iniciar Sesión</button>
+        
+        <img src="assets/images/loading.gif" [hidden]=!PERFORMING_TRANSACTION width="72" height="72">
+        
+        <p class="mt-5 mb-3 text-muted">© 2019-{{ YEAR }}</p>
+
+    </form>
+
+</div>
