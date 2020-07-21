@@ -2,35 +2,40 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { LoginService } from 'src/services/login.service';
 import { Router } from '@angular/router';
+import { ERROR } from 'src/models/error';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'router-outlet',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   
   PERFORMING_TRANSACTION = false; // if an action is being perfomed
-  ERROR:Boolean = false; // indicate if error ocurred
-  ERROR_MESSAGE:String = "Excepción no controlada";
+  ERROR:ERROR =  new ERROR();
   YEAR = new Date().getFullYear();
   FORM_LOGIN = new FormGroup({
-      USER_NAME : new FormControl('',Validators.required),
-      USER_PASSWORD : new FormControl('',Validators.required)
+          USER_NAME : new FormControl('', [Validators.required, Validators.minLength(6)]),
+      USER_PASSWORD : new FormControl('', [Validators.required,Validators.minLength(6)])
 
   });
 
-  constructor(private SERVICE_LOGIN: LoginService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router){}
+  constructor(private SERVICE_LOGIN: LoginService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router, private AUTH_SERVICE: AuthService){}
 
   ngOnInit(){
-    console.log("init called")
+    
+    this.AUTH_SERVICE.setItem("SESSION",{
+          Nombre:"ALejandro",
+          Apellido: "Alejo"
+      })
+      console.log(this.AUTH_SERVICE.getItem("SESSION"))   
   }
 
   submitEvent ($evt){
-      this.ERROR = false;
+      this.ERROR.OCURRED = false;
       if (!this.FORM_LOGIN.valid) {
-          this.ERROR = true;
-          this.ERROR_MESSAGE = "Datos no validos";
+          this.ERROR.OCURRED = true;
+          this.ERROR.MESSAGE = "Datos no validos";
           return;
       }
       $evt.preventDefault()
@@ -40,29 +45,29 @@ export class LoginComponent implements OnInit {
 
   SUCCESS_CALLBACK = (response) => {
       if (response.Id == null){
-          this.ERROR = true;
-          this.ERROR_MESSAGE = "Ha ocurrido un error";
+          this.ERROR.OCURRED = true;
+          this.ERROR.MESSAGE = "Ha ocurrido un error";
           return;
       }
       if (response.Id == ""){
-          this.ERROR = true;
-          this.ERROR_MESSAGE = "Usuario y/o contraseña incorrecto";
+          this.ERROR.OCURRED = true;
+          this.ERROR.MESSAGE = "Usuario y/o contraseña incorrecto";
+          this.ERROR.TYPE = "INFO"
           return;
       }
       if ((response.Id != "" && response.Id != null) && response.Enabled == false){
-          this.ERROR = true;
-          this.ERROR_MESSAGE = "Usuario no tiene permitido iniciar sesión";
+          this.ERROR.OCURRED = true;
+          this.ERROR.MESSAGE = "Usuario no tiene permitido iniciar sesión";
+          this.ERROR.TYPE = "WARNING"
           return;
       }
-      this.ERROR = true;
-      this.ERROR_MESSAGE = "Session Iniciada"; 
       this.ROUTER.navigate(['app']);
-      
   }
 
   ERROR_CALLBACK = (error) => {
-      this.ERROR = true;
-      this.ERROR_MESSAGE = "Fallo al contactar al servicio SCADA"
+      this.ERROR.OCURRED = true;
+      this.ERROR.MESSAGE = "Fallo al contactar al servicio SCADA"
+      this.ERROR.TYPE = "DANGER";
   }
 
   FINISHED_CALLBACK = () => {

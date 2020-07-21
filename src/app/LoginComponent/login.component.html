@@ -6,12 +6,30 @@
 
         <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesión</h1>
         
-        <input type="text" class="form-control" [class.is-invalid]="FORM_LOGIN.get('USER_NAME').touched && FORM_LOGIN.get('USER_NAME').invalid" placeholder="administrador.scada" formControlName="USER_NAME" autofocus>
-        
-        <input type="password" class="form-control" [class.is-invalid]="FORM_LOGIN.get('USER_PASSWORD').touched && FORM_LOGIN.get('USER_PASSWORD').invalid" placeholder="***********" formControlName="USER_PASSWORD">
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <input type="text" class="form-control" [ngClass]="(FORM_LOGIN.get('USER_NAME').touched && FORM_LOGIN.get('USER_NAME').invalid) ? 'is-invalid':''" [ngClass]="(FORM_LOGIN.get('USER_NAME').touched && !FORM_LOGIN.get('USER_NAME').invalid) ? 'is-valid':''" placeholder="administrador.scada" formControlName="USER_NAME">
+              <div class="invalid-feedback">
+               Ingrese su usuario ( min:6 )
+              </div>
+            </div>
+        </div>
 
-        <ngb-alert type="danger" [dismissible]="false" [hidden]=!ERROR>
-            <strong>¡Error!</strong> {{ ERROR_MESSAGE }}
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <input type="password" class="form-control" [ngClass]="(FORM_LOGIN.get('USER_PASSWORD').touched && FORM_LOGIN.get('USER_PASSWORD').invalid) ? 'is-invalid': ''" [ngClass]="(FORM_LOGIN.get('USER_PASSWORD').touched && !FORM_LOGIN.get('USER_PASSWORD').invalid) ? 'is-valid': ''" placeholder="***********" formControlName="USER_PASSWORD">
+                <div class="invalid-feedback">
+               Ingrese su contraseña ( min:6 )
+              </div>
+            </div>
+        </div>
+
+        <ngb-alert [ngSwitch]="ERROR.TYPE" type="{{ ERROR.TYPE | lowercase }}" [dismissible]="false" [hidden]=!ERROR.OCURRED>
+            <strong *ngSwitchCase="'SUCCESS'">¡Éxito!</strong> 
+            <strong *ngSwitchCase="'INFO'">¡Información!</strong> 
+            <strong *ngSwitchCase="'WARNING'">¡Advertencia!</strong> 
+            <strong *ngSwitchCase="'DANGER'">¡Error!</strong> 
+            {{ ERROR.MESSAGE }}
           </ngb-alert>
         
         <button [disabled]=!FORM_LOGIN.valid type="submit" class="btn btn-lg btn-primary btn-block" [hidden]=PERFORMING_TRANSACTION ngbButton>Iniciar Sesión</button>

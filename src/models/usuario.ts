@@ -8,6 +8,4 @@ export interface USER {
     Password:string;
     Tipo:USER_TYPE;
     Enabled:Boolean;
-
-
 }
