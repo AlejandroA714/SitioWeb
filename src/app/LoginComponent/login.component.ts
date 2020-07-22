@@ -1,6 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
-import { LoginService } from 'src/services/login.service';
 import { Router } from '@angular/router';
 import { ERROR } from 'src/models/error';
 import { AuthService } from '../../services/auth.service';
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   });
 
-  constructor(private SERVICE_LOGIN: LoginService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router, private AUTH_SERVICE: AuthService){}
+  constructor(private AUTH_SERVICE: AuthService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router){}
 
   ngOnInit(){
     
@@ -40,7 +39,7 @@ export class LoginComponent implements OnInit {
       }
       $evt.preventDefault()
       this.PERFORMING_TRANSACTION = true;
-      this.SERVICE_LOGIN.iniciarSesion(this.FORM_LOGIN.value).subscribe(this.SUCCESS_CALLBACK,this.ERROR_CALLBACK).add(this.FINISHED_CALLBACK)
+      this.AUTH_SERVICE.iniciarSesion(this.FORM_LOGIN.value).subscribe(this.SUCCESS_CALLBACK,this.ERROR_CALLBACK).add(this.FINISHED_CALLBACK)
   }
 
   SUCCESS_CALLBACK = (response) => {
@@ -61,6 +60,7 @@ export class LoginComponent implements OnInit {
           this.ERROR.TYPE = "WARNING"
           return;
       }
+      this.AUTH_SERVICE.setSession(response)
       this.ROUTER.navigate(['app']);
   }
 

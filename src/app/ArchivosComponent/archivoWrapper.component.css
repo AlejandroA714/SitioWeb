@@ -1,0 +1,14 @@
+.content{
+    width: auto;
+    height: 26px;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.content-XL{
+    width: auto;
+    max-height: 36px;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+}

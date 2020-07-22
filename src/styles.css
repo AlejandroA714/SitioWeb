@@ -1,3 +1,39 @@
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+
+span,button:focus {
+    outline: none;
+}
+.span-link{
+    cursor: pointer;
+}
+.btn-active{
+    background-color:silver;
+}
+.center{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+.div-center {
+    width: 100%;
+    max-width: 440px;
+    padding: 15px;
+    margin: 0;
+    position: absolute;
+    top: 10%;
+    left: 45%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+body{
+    font-family: "Roboto" !important;
+}
+md-icon{
+    font-family: 'Material Icons' !important;
+}
 .mt-2_5{
     margin-top: .25rem !important;
 }
@@ -51,4 +87,10 @@ th::after{
 }
 th::before{
     content: "" !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto; }
+
+.icon-spacer {
+    flex: 1 1 auto;
 }
