@@ -2,8 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainModule } from './MainComponent/main.module';
-import { LoginModule } from './LoginComponent/login.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -11,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { LoginModule } from '../Modules/login.module/login.module';
+import { mainModule } from '../Modules/main.module/main.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { MatListModule } from '@angular/material/list';
   ],
   imports: [
     LoginModule,
-    MainModule,
+    mainModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

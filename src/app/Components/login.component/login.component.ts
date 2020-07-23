@@ -2,13 +2,14 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ERROR } from 'src/models/error';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+
+export class loginComponent implements OnInit {
   
   PERFORMING_TRANSACTION = false; // if an action is being perfomed
   ERROR:ERROR =  new ERROR();
@@ -22,12 +23,6 @@ export class LoginComponent implements OnInit {
   constructor(private AUTH_SERVICE: AuthService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router){}
 
   ngOnInit(){
-    
-    this.AUTH_SERVICE.setItem("SESSION",{
-          Nombre:"ALejandro",
-          Apellido: "Alejo"
-      })
-      console.log(this.AUTH_SERVICE.getItem("SESSION"))   
   }
 
   submitEvent ($evt){

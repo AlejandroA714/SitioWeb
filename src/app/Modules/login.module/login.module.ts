@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { loginComponent } from '../../Components/login.component/login.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [loginComponent],
   imports: [
     CommonModule,
     LoginRoutingModule,
@@ -15,7 +15,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule
-  ],
-  bootstrap: [ LoginComponent ]
+  ]
 })
 export class LoginModule { }

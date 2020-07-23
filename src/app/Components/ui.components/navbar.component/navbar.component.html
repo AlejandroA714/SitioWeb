@@ -1,0 +1,72 @@
+<mat-toolbar color="'white'" role="heading"> 
+  <mat-toolbar-row>
+    <button mat-icon-button (click)=sidenav.toggle() *ngIf="( (SIDEBAR_ACTIVE | async) || (IS_HANDED | async) )" >
+      <mat-icon>menu</mat-icon>
+    </button> 
+      <span routerLink="main" class="nav-link-inner mr-2 ml-2 span-link">  <mat-icon svgIcon="favicon"></mat-icon> Sistema SCADA </span>
+      <div [hidden]="(IS_HANDED | async )">
+        <button mat-button routerLink="file" routerLinkActive="btn-active" >Archivo</button>
+        <button mat-button routerLink="settings" routerLinkActive="btn-active" >Configuraciones</button>
+        <button mat-button routerLink="reports" routerLinkActive="btn-active" >Reportes</button>
+      </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #drawer [mode]="'side'" [opened]="(SIDEBAR_ACTIVE | async )" #sidenav  >
+    <mat-accordion [multi]=true>
+      <mat-expansion-panel [expanded]=true>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="with-icon">
+            <mat-icon>save</mat-icon> <span class="font-weight-bold ml-2"> Archivo </span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" [routerLink]="['file','new']"><mat-icon>add</mat-icon> <span class="font-weight-bold ml-2">Nuevo</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" [routerLink]="['file','load']"><mat-icon>folder</mat-icon> <span class="font-weight-bold ml-2">Abrir</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" [routerLink]="['file','save']"><mat-icon>cloud_upload</mat-icon> <span class="font-weight-bold ml-2">Guardar</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" [routerLink]="['file','close']"><mat-icon>close</mat-icon> <span class="font-weight-bold ml-2">Cerrar</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" [routerLink]="['file','delete']"><mat-icon>delete_sweep</mat-icon> <span class="font-weight-bold ml-2">Eliminar</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" [routerLink]="['file','logout']"><mat-icon>logout</mat-icon> <span class="font-weight-bold ml-2">Cerrar Sesión</span></mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]=true>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="with-icon">
+            <mat-icon>build</mat-icon> <span class="font-weight-bold ml-2">Configuración</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" routerLink="devices"><mat-icon>devices</mat-icon> <span class="font-weight-bold ml-2">Dispositivos</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" routerLink="users"><mat-icon>group</mat-icon> <span class="font-weight-bold ml-2">Usuarios</span></mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" routerLink="user"><mat-icon>person</mat-icon> <span class="font-weight-bold ml-2">Cuenta</span></mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [expanded]=true  >
+        <mat-expansion-panel-header>
+          <mat-panel-title class="with-icon">
+            <mat-icon>pie_chart</mat-icon> <span class="font-weight-bold ml-2">Reportes</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          <mat-list-item class="with-icon" routerLinkActive="btn-active" routerLink="reports"><mat-icon>bar_chart</mat-icon> <span class="font-weight-bold ml-2">Reportes</span></mat-list-item>
+        </mat-nav-list>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-sidenav>
+  
+  <mat-sidenav-content style="height: 96vh;" >        
+    <router-outlet></router-outlet>  
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

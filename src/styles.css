@@ -7,7 +7,10 @@ span,button:focus {
     cursor: pointer;
 }
 .btn-active{
-    background-color:silver;
+    background-color:silver !important;
+}
+mat-list-item:hover{
+    background-color: silver !important;
 }
 .center{
     margin: 0;
@@ -28,8 +31,9 @@ span,button:focus {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
-body{
-    font-family: "Roboto" !important;
+body, html{
+    font-family: "Roboto";
+    height: 100% !important;
 }
 md-icon{
     font-family: 'Material Icons' !important;
@@ -94,3 +98,38 @@ body { margin: 0; font-family: Roboto; }
 .icon-spacer {
     flex: 1 1 auto;
 }
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+ flex-basis: 0;
+}
+
+.mat-expansion-panel-header-description {
+ justify-content: space-between;
+ align-items: center;
+}
+.mat-form-field + .mat-form-field {
+ margin-left: 8px;
+}
+.aligned-with-icon{
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.aligned-with-icon-relative{
+    position: relative;
+    top: -5px;
+    margin-left: 5px;
+}
+.with-icon {
+    display: flex;
+    align-items: center;
+}
+
+mat-sidenav, 
+mat-sidenav.md-locked-open, 
+mat-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 200px !important;
+    width: 85vw !important;
+    max-width: 275px !important;
+} 
