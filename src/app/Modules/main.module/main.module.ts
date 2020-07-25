@@ -14,11 +14,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { loadComponent } from 'src/app/Components/file.components/load.component/load.component/load.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [ navbarComponent ],
+  declarations: [ navbarComponent, loadComponent ],
   imports: [
     MainRoutingModule,
+    NgbModule,
     CommonModule,
     MatToolbarModule,
     MatIconModule,
@@ -33,7 +36,8 @@ import { MatInputModule } from '@angular/material/input';
     MatToolbarModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    
   ],
 })
 export class mainModule {

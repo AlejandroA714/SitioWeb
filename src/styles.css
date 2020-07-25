@@ -132,4 +132,12 @@ mat-sidenav.md-closed.md-locked-open-add-active {
     min-width: 200px !important;
     width: 85vw !important;
     max-width: 275px !important;
+    min-height: 100% !important;
 } 
+
+.custom-sidenav-container { 
+    position: inherit;
+    height: 93%;
+    display: inherit;
+    transform: inherit; 
+}

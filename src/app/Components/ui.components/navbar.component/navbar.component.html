@@ -12,8 +12,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-sidenav-container class="example-container">
-  <mat-sidenav #drawer [mode]="'side'" [opened]="(SIDEBAR_ACTIVE | async )" #sidenav  >
+<mat-sidenav-container class="custom-sidenav-container">
+  <mat-sidenav #drawer [mode]="( IS_HANDED | async) ? 'over': 'side'" [opened]="(SIDEBAR_ACTIVE | async )" #sidenav  >
     <mat-accordion [multi]=true>
       <mat-expansion-panel [expanded]=true>
         <mat-expansion-panel-header>
@@ -65,8 +65,9 @@
     </mat-accordion>
   </mat-sidenav>
   
-  <mat-sidenav-content style="height: 96vh;" >        
-    <router-outlet></router-outlet>  
+  <mat-sidenav-content  >     
+    <router-outlet>
+    </router-outlet>  
   </mat-sidenav-content>
 </mat-sidenav-container>
 

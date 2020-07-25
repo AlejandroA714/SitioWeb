@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { LoginModule } from '../Modules/login.module/login.module';
 import { mainModule } from '../Modules/main.module/main.module';
+import { Crypter } from '../../services/crypter.service';
 
 @NgModule({
   declarations: [
@@ -27,9 +28,10 @@ import { mainModule } from '../Modules/main.module/main.module';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+
   ],
-  providers: [],
+  providers: [Crypter],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { shareReplay, map, filter } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,9 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 })
 export class navbarComponent implements OnInit {
 
-  constructor(private breakpointObserver: BreakpointObserver, private ROUTER: Router,private ROUTE: ActivatedRoute) {}
+  constructor(private breakpointObserver: BreakpointObserver, private ROUTER: Router,private ROUTE: ActivatedRoute, private AUTH_SERVICE: AuthService) {}
 
-  IS_HANDED: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  IS_HANDED: Observable<boolean> = this.breakpointObserver.observe( [ Breakpoints.Handset,Breakpoints.Small  ] )
                                   .pipe(
                                         map(result =>  result.matches ),
                                         shareReplay()

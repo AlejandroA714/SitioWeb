@@ -1,20 +1,36 @@
-<div class="m-5 div-center">
-
-    <h2 class="text-center ">Abrir Proyecto</h2>
-
-    <div class="border pt-3 pl-3 mt-3 pb-2">
-        <div class="row">
-            <div class="col-8">
-                <textarea class="my-auto content-XL font" style="resize: none; border:none;width:95.0%; font-size:calc(1em + 0.35vmin)"
-                    readonly>Nombre</textarea>
-                <textarea class="my-auto content font" style="resize: none; border:none;width: 100.0%; font-size:calc(0.75em + 0.15vmin)"
-                    readonly>Contiene 1 controladores</textarea>
-            </div>
-            <div class="col-4 text-right pr-5 my-auto textarea ">
-                <button id="{2}" class="btn btn-outline-success btnAbrir"><i
-                        class="fas fa-download pr-1"></i>Abrir</button>
-            </div>
-        </div>
-    </div>
-
+<div *ngIf="WORKSPACES_LIST_OBSERVABLE | async as WORKSPACES_LIST; else LOADING_ERROR" style="height: 100%;" >
+  <div fxLayout="column" fxLayoutAlign="center center" style="height: 90%;" *ngIf="WORKSPACES_LIST.length == 0" >
+    <img  src="assets/images/Empty.png">
+    <h4 class="text-muted font-weight-bold text-center"> ¡Vacio! </h4>    
+  </div>  
+  <div class="m-4" fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="15px" fxLayout.xs="column" fxLayout.sm="column">
+      <mat-card class="mt-2" fxFlex="23" fxFlex.lg="30" fxFlex.md="45" fxFlex.sm="90" fxFlex.xs="90" *ngFor="let DEVICE of WORKSPACES_LIST">
+        <mat-card-content>
+            <div class="row">
+                <div class="col">
+                  <h5 class="card-title text-muted mb-0">Nombre:</h5>
+                  <span class="h3 font-weight-bold mb-0">{{DEVICE.Nombre}}</span>
+                </div>
+                <div class="col-auto">
+                    <button mat-fab color="warn" aria-label="Example icon button with a home icon">
+                        <mat-icon>cloud_download</mat-icon>
+                      </button>
+                  <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                </div>
+              </div>
+              <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-nowrap">Contiene {{DEVICE.DriversCount}} dispositivo</span>
+              </p>
+        </mat-card-content>
+      </mat-card>
+  </div>
 </div>
+
+<ng-template #LOADING_ERROR>
+  <div fxLayout="column" fxLayoutAlign="center center" style="height: 100%;" >
+      <img  [src]="( ERROR.OCURRED ) ? 'assets/images/Error.png':'assets/images/loading.gif'">
+      <h4 class="text-muted font-weight-bold text-center" [innerText]="( ERROR.OCURRED ) ? ERROR.MESSAGE : 'Cargando...'"></h4>    
+  </div>
+</ng-template>
