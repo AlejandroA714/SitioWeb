@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { DevicesService } from '../../../../../services/devices.service';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { DevicesService } from 'src/services/devices.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { throwError } from 'rxjs';
 import { ERROR } from 'src/models/error';
+import { ComunicationService } from 'src/services/comunication.service';
+import { Crypter } from 'src/services/crypter.service';
 
 @Component({
   templateUrl: './load.component.html',
@@ -10,7 +12,7 @@ import { ERROR } from 'src/models/error';
 })
 export class loadComponent implements OnInit {
 
-  constructor(private DEVICES_SERVICE: DevicesService) { }
+  constructor(private DEVICES_SERVICE: DevicesService,private COMUNICATION_SERVICE: ComunicationService,private CRYPTER: Crypter) { }
 
   ERROR:ERROR =  new ERROR();
   WORKSPACES_LIST_OBSERVABLE = this.DEVICES_SERVICE.obtenerProyectos().
@@ -21,8 +23,13 @@ export class loadComponent implements OnInit {
                               return throwError(ERR)
                             })) //an observable to suscribe with "async"
 
-  ngOnInit(): void {
+  ngOnInit(){}
 
+  btnAbrir_Click(id:string){
+    if (confirm("¿Seguro que desea cargar este proyecto?")){
+      this.CRYPTER.setItem("WORKSPACE_ID",id)
+      this.COMUNICATION_SERVICE.loadWorkSpace.perfom(id); //Send message that project should be load
+    }
   }
 
 }

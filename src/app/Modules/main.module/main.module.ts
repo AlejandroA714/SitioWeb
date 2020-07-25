@@ -16,6 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { loadComponent } from 'src/app/Components/file.components/load.component/load.component/load.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseService } from '../../../services/route-reuse.service';
 
 @NgModule({
   declarations: [ navbarComponent, loadComponent ],
@@ -38,7 +40,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatFormFieldModule,
     MatInputModule,
     
-  ],
+  ],providers:[{provide:RouteReuseStrategy,useClass:RouteReuseService}]
 })
 export class mainModule {
 

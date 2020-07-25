@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core'
 import { Crypter } from './crypter.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import * as CryptoJS from 'crypto-js';
 
 
 @Injectable({
@@ -36,14 +35,6 @@ export class AuthService{
 
     public deleteSession(){
         this.CRYPTER.SECURE_STORAGE.clear()
-    }
-
-    public setItem(KEY:string,DATA:any){
-        this.CRYPTER.SECURE_STORAGE.setItem(KEY,DATA)
-    }
-
-    public getItem(KEY:string){
-        this.CRYPTER.SECURE_STORAGE.getItem(KEY)
     }
 
 }

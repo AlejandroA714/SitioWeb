@@ -7,7 +7,7 @@ import { navbarComponent } from '../../Components/ui.components/navbar.component
 const routes: Routes = [
     { path: 'app', component: navbarComponent, children: [
         {path: '', redirectTo: 'main', pathMatch: 'full'},
-        {path:'main',component: mainComponent},
+        {path:'main',component: mainComponent,data:{reuse:true}},
         {path:'file', children:[
           {path:'', redirectTo:'load', pathMatch:'full'},
           {path:'new',component:loadComponent},

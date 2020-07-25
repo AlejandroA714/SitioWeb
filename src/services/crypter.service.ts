@@ -31,7 +31,13 @@ export class Crypter {
                                                         encrypt: function ENCRYPT (DATA:any) { return (CryptoJS.AES.encrypt(DATA,SECRET_KEY,{iv:IV})).toString();}, 
                                                         decrypt: function DECRYPT (DATA:any) { return (CryptoJS.AES.decrypt(DATA,SECRET_KEY,{iv:IV})).toString(CryptoJS.enc.Utf8);}
                                                     });
-   
+                                                    
+    public setItem(KEY:string,DATA:any){
+        this.SECURE_STORAGE.setItem(KEY,DATA)
+    }
 
+    public getItem(KEY:string){
+        return this.SECURE_STORAGE.getItem(KEY)
+    }
 
 }
