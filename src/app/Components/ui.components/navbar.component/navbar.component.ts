@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { shareReplay, map, filter } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AuthService } from '../../../../services/auth.service';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-navbar',

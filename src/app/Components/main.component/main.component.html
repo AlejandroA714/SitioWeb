@@ -1,0 +1,22 @@
+<div class="mt-3" fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+    
+    <div class="border driver" fxLayout="column" fxFlex.gt-lg="18"  fxFlex.lg="23" fxFlex.md="32" fxFlex.sm="46" fxFlex.sd="70" fxFlex.xs="95" *ngFor="let item of arreglo" >
+        <div fxFlex="90" fxLayout="row" fxLayoutGap="7px">
+            <div fxLayout="column" fxFlex="60" fxLayoutAlign="space-between" class="m-2" fxLayoutGap="5px">
+                <span class="Title" fxFlex="1">Titulo</span>   
+                <div fxFlex="10" fxLayout="row" class="with-icon">
+                    <span class="ml-2 mb-0">Estado:</span><p id="DriverlblStatus" class="disconect bd-highlight mt-2_7 ml-1 mr-1"></p><span class="bd-highlight" id="DriverStatus">Desconocido</span>
+                </div>
+                <img class="img-fluid" fxFlex="85" src="assets/images/NoImage.png" alt="" srcset="" fxFlexFill>
+            </div>
+            <div fxLayout="column" fxFlex="40" class="m-2" fxLayoutGap="10px">
+                <span fxFlex="10" fxLayoutAlign="end center" class="mt-2 mb-0 font-responsive">Actualizando en: 240</span>   
+                <div fxFlex="90" class=""></div>
+            </div>
+        </div>
+        <div fxFlex="10">
+            <span class=" responsive-font  font-single ml-2">Ultima Vez: 26/07/20 15:17:00pm</span>
+        </div>
+    </div>
+
+</div>

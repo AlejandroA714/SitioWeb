@@ -3,14 +3,14 @@ import { Crypter } from './crypter.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
     providedIn: "root"
 })
 
 export class AuthService{
 
-    private URL:string = "http://127.0.0.1:8080/Sesion/{0}";
+    //private URL:string = "http://127.0.0.1:8080/Sesion/{0}";
+    private URL:string = "https://apiscada.herokuapp.com/Sesion/{0}";
 
     constructor(private CRYPTER: Crypter, private HTTP: HttpClient){}
     

@@ -12,6 +12,12 @@ span,button:focus {
 mat-list-item:hover{
     background-color: silver !important;
 }
+.responsive-font{
+    font-size:calc(0.80em + 0.15vmin);
+}
+.responsive-font-h{
+    font-size:calc(1.50em + 0.15vmin);
+}
 .center{
     margin: 0;
     position: absolute;

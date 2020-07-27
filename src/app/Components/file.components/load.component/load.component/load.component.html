@@ -3,13 +3,13 @@
     <img  src="assets/images/Empty.png">
     <h4 class="text-muted font-weight-bold text-center"> ¡Vacio! </h4>    
   </div>  
-  <div class="m-4" fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="15px" fxLayout.xs="column" fxLayout.sm="column">
-      <mat-card class="mt-2" fxFlex="23" fxFlex.lg="30" fxFlex.md="45" fxFlex.sm="90" fxFlex.xs="90" *ngFor="let WORKSPACE of WORKSPACES_LIST">
+  <div class="m-4" fxLayout="row wrap" fxLayoutAlign.lt-md="center start" fxLayoutAlign.gt-sm="start start" fxLayoutGap="15px">
+      <mat-card class="mt-2" fxFlex.gt-lg="23" fxFlex.lg="23" fxFlex.md="31" fxFlex.sm="45" fxFlex.sd="85" fxFlex.xs="100" *ngFor="let WORKSPACE of WORKSPACES_LIST">
         <mat-card-content>
             <div class="row">
                 <div class="col">
                   <h5 class="card-title text-muted mb-0">Nombre:</h5>
-                  <span class="h3 font-weight-bold mb-0">{{WORKSPACE.Nombre}}</span>
+                  <span class="h3 font-weight-bold mb-0 responsive-font-h">{{WORKSPACE.Nombre}}</span>
                 </div>
                 <div class="col-auto">
                     <button mat-fab color="warn" (click)="btnAbrir_Click(WORKSPACE.Id)" aria-label="Example icon button with a home icon">

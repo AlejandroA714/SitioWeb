@@ -3,35 +3,26 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { LoginModule } from '../Modules/login.module/login.module';
 import { mainModule } from '../Modules/main.module/main.module';
-import { Crypter } from '../../services/crypter.service';
+import { Crypter } from 'src/services/crypter.service';
+import { CommonModule } from '@angular/common';
+import { BREAKPOINT, FlexLayoutModule, DEFAULT_BREAKPOINTS } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    BrowserModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
     LoginModule,
     mainModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-
+    AppRoutingModule
   ],
-  providers: [Crypter],
+  providers: [Crypter,{provide:BREAKPOINT,useValue:DEFAULT_BREAKPOINTS,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
