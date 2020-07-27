@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -16,11 +16,7 @@ export class DevicesService{
 
 
     public obtenerProyectos(): Observable<any>{
-        const HEADERS = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+ this.AUTH_SERVICE.accessToken()
-          });
-        return this.HTTP_CLIENT.get(this.URL.format("MostrarTodos"),{ headers : HEADERS});
+        return this.HTTP_CLIENT.get(this.URL.format("MostrarTodos"));
     }
 
 

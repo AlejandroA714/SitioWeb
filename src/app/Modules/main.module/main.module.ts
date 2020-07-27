@@ -18,7 +18,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouteReuseStrategy } from '@angular/router';
 import { RouteReuseService } from 'src/services/route-reuse.service';
 import { mainComponent } from 'src/app/Components/main.component/main.component';
-import { fxFlexSD } from '../../../directives/fxFlex.directive';
+import { fxFlexSD } from 'src/directives/fxFlex.directive';
+import { AuthGuardService } from 'src/services/auth-guard.service';
+import { RoleGuardService } from 'src/services/role-guard.service';
+import { unathorizedComponent } from '../../Components/ui.components/unathorized.component/unathorized.component';
 
 const CUSTOM_BREAKPOINT = [
   {
@@ -35,7 +38,7 @@ const CUSTOM_BREAKPOINT = [
   }] 
 
 @NgModule({
-  declarations: [ navbarComponent, loadComponent, mainComponent, fxFlexSD ],
+  declarations: [ navbarComponent, loadComponent, mainComponent, unathorizedComponent, fxFlexSD ],
   imports: [
     FlexLayoutModule,
     MainRoutingModule,
@@ -52,9 +55,8 @@ const CUSTOM_BREAKPOINT = [
     MatToolbarModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
-    
-  ],providers:[{provide:RouteReuseStrategy,useClass:RouteReuseService},{provide:BREAKPOINT,useValue:CUSTOM_BREAKPOINT,multi:true}]
+    MatInputModule,    
+  ],providers:[{provide:RouteReuseStrategy,useClass:RouteReuseService},{provide:BREAKPOINT,useValue:CUSTOM_BREAKPOINT,multi:true},AuthGuardService,RoleGuardService]
 })
 export class mainModule {
 

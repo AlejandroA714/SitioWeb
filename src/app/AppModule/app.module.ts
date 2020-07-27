@@ -8,7 +8,23 @@ import { mainModule } from '../Modules/main.module/main.module';
 import { Crypter } from 'src/services/crypter.service';
 import { CommonModule } from '@angular/common';
 import { BREAKPOINT, FlexLayoutModule, DEFAULT_BREAKPOINTS } from '@angular/flex-layout';
+import { JwtModule, JwtModuleOptions, JwtHelperService } from '@auth0/angular-jwt';
 
+const JWT_Module_Options: JwtModuleOptions = {
+  config: {
+      tokenGetter:(() => Crypter.getItem("SESSION")["access_token"]) ,
+      allowedDomains : ["localhost","127.0.0.1:8080","apiscada.herokuapp.com"],
+      headerName: "Authorization",
+      authScheme: "Bearer ",
+      throwNoTokenError:false
+  }
+};
+
+export function tokenGetter(){
+  console.log(Crypter.getItem("SESSION")["access_token"]);
+  return Crypter.getItem("SESSION")["access_token"];
+}
+ 
 @NgModule({
   declarations: [
     AppComponent
@@ -18,6 +34,7 @@ import { BREAKPOINT, FlexLayoutModule, DEFAULT_BREAKPOINTS } from '@angular/flex
     CommonModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    JwtModule.forRoot(JWT_Module_Options),
     LoginModule,
     mainModule,
     AppRoutingModule
@@ -26,6 +43,8 @@ import { BREAKPOINT, FlexLayoutModule, DEFAULT_BREAKPOINTS } from '@angular/flex
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
 
 declare global{
   interface String {

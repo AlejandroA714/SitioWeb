@@ -13,7 +13,7 @@ import { MediaObserver } from '@angular/flex-layout';
 })
 export class loadComponent implements OnInit {
 
-  constructor(private DEVICES_SERVICE: DevicesService,private COMUNICATION_SERVICE: ComunicationService,private CRYPTER: Crypter,public mediaObserver: MediaObserver ) { 
+  constructor(private DEVICES_SERVICE: DevicesService,private COMUNICATION_SERVICE: ComunicationService,public mediaObserver: MediaObserver ) { 
     mediaObserver.media$.subscribe((some )=>{
       console.log(some)
     });
@@ -32,7 +32,7 @@ export class loadComponent implements OnInit {
 
   btnAbrir_Click(id:string){
     if (confirm("¿Seguro que desea cargar este proyecto?")){
-      this.CRYPTER.setItem("WORKSPACE_ID",id)
+      Crypter.setItem("WORKSPACE_ID",id)
       this.COMUNICATION_SERVICE.loadWorkSpace.perfom(id); //Send message that project should be load
     }
   }

@@ -1,8 +1,10 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ERROR } from 'src/models/error';
 import { AuthService } from 'src/services/auth.service';
+import { isUndefined } from 'util';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   templateUrl: './login.component.html',
@@ -20,7 +22,27 @@ export class loginComponent implements OnInit {
 
   });
 
-  constructor(private AUTH_SERVICE: AuthService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router){}
+  constructor(private AUTH_SERVICE: AuthService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router, private ROUTE: ActivatedRoute){
+    AUTH_SERVICE.deleteSession()
+    ROUTE.params.subscribe( (params) => {
+        if (!isUndefined(params['error'])){
+            this.ERROR.OCURRED = true
+            this.ERROR.TYPE = "DANGER"
+            switch(params['error']){
+                case 'expired':
+                    this.ERROR.MESSAGE = "Sesión expirada";
+                    this.ERROR.TYPE = "INFO"
+                    break;
+                case 'unathorized':
+                    this.ERROR.MESSAGE = "Acceso no authorizado"
+                    break;
+                default:
+                    this.ERROR.MESSAGE = "Ha ocurrido un error"
+                    break;
+            }
+        }
+    })
+  }
 
   ngOnInit(){
   }
@@ -60,6 +82,7 @@ export class loginComponent implements OnInit {
   }
 
   ERROR_CALLBACK = (error) => {
+      console.log(error)
       this.ERROR.OCURRED = true;
       this.ERROR.MESSAGE = "Fallo al contactar al servicio SCADA"
       this.ERROR.TYPE = "DANGER";

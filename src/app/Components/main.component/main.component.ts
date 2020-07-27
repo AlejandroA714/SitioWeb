@@ -11,7 +11,7 @@ export class mainComponent implements OnInit {
 
   arreglo = [1,2,3,4,5,6,7,8,9,10];
   
-  constructor(private COMUNICATION_SERVICE: ComunicationService,private CRYPTER: Crypter,public mediaObserver: MediaObserver ) { 
+  constructor( private COMUNICATION_SERVICE: ComunicationService ,public mediaObserver: MediaObserver ) { 
     mediaObserver.media$.subscribe((some )=>{
       console.log(some)
     });
@@ -19,7 +19,7 @@ export class mainComponent implements OnInit {
 
   ngOnInit(): void {
     this.COMUNICATION_SERVICE.loadWorkSpace.suscribe( (param) => {
-      console.log(this.CRYPTER.getItem("WORKSPACE_ID"))
+      console.log(Crypter.getItem("WORKSPACE_ID"))
     })
   }
 

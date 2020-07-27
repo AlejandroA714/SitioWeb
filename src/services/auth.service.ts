@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core'
 import { Crypter } from './crypter.service';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: "root"
@@ -12,7 +14,8 @@ export class AuthService{
     //private URL:string = "http://127.0.0.1:8080/Sesion/{0}";
     private URL:string = "https://apiscada.herokuapp.com/Sesion/{0}";
 
-    constructor(private CRYPTER: Crypter, private HTTP: HttpClient){}
+    constructor( private HTTP: HttpClient, private JWTHelper: JwtHelperService, private ROUTER: Router){
+    }
     
     public iniciarSesion(USER:object): Observable<Object>{
             return this.HTTP.post(this.URL.format("IniciarSesion"),{
@@ -21,20 +24,24 @@ export class AuthService{
                                                                     });
     }
 
+    public AUTHENTICATED() : Boolean {
+        return !this.JWTHelper.isTokenExpired()
+    }
+
     public setSession(SESSION:any){
-        this.CRYPTER.SECURE_STORAGE.setItem("SESSION",SESSION)
+        Crypter.SECURE_STORAGE.setItem("SESSION",SESSION)
     }
 
     public getSession(){
-        return this.CRYPTER.SECURE_STORAGE.getItem("SESSION")
+        return Crypter.SECURE_STORAGE.getItem("SESSION")
     }
 
     public accessToken(){
-        return this.CRYPTER.SECURE_STORAGE.getItem("SESSION")["access_token"];
+        return Crypter.SECURE_STORAGE.getItem("SESSION") != undefined ? Crypter.SECURE_STORAGE.getItem("SESSION")["access_token"] : {"access_token":null}
     }
 
     public deleteSession(){
-        this.CRYPTER.SECURE_STORAGE.clear()
+        Crypter.SECURE_STORAGE.clear()
     }
 
 }
