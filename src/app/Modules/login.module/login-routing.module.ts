@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { loginComponent } from 'src/app/Components/login.component/login.component';
 
 const routes: Routes = [
-    {path : 'auth/:error', component: loginComponent },
-    {path : 'auth', component: loginComponent }
+    {path : ':error', component: loginComponent },
+    {path : '', component: loginComponent }
   ];
 
 @NgModule({
