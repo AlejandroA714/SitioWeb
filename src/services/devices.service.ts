@@ -19,6 +19,10 @@ export class DevicesService{
         return this.HTTP_CLIENT.get(this.URL.format("MostrarTodos"));
     }
 
+    public abrirProyecto(Id:String): Observable<any>{
+        return this.HTTP_CLIENT.get(this.URL.format("Abrir/{0}".format(Id)));
+    }
+
 
 
 }

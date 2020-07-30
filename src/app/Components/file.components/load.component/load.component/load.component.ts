@@ -31,6 +31,7 @@ export class LoadComponent implements OnInit {
 
   btnAbrir_Click(id:string){
     if (confirm("¿Seguro que desea cargar este proyecto?")){
+      Crypter.setItem("WORKSPACE_ID",id);
       this.COMUNICATION_SERVICE.loadWorkSpace.perfom(id); //Send message that project should be load
     }
   }

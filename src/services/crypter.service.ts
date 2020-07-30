@@ -23,7 +23,7 @@ export class Crypter {
     }
 
     public static getItem(KEY:string){
-        return (this.SECURE_STORAGE.getItem(KEY)  != undefined ? this.SECURE_STORAGE.getItem(KEY) : {KEY:null});
+        return (this.SECURE_STORAGE.getItem(KEY)  != undefined ? this.SECURE_STORAGE.getItem(KEY) : null );
     }
 
     public static saveKey(){

@@ -5,11 +5,10 @@
     margin-top:15px;
     margin-right: 0px;
     height: auto;
-    max-width: 287px;
+    max-width: 300px;
 }
 
 .font{
-    
     font-weight: bold;
 }
 .font-single{
@@ -24,7 +23,7 @@
 }
 .Title{
     position: relative;
-    top: -18px;
+    top: -15px;
     left: 2px;
     font-size: 18px;
 }
@@ -241,7 +240,7 @@ textarea:focus{
     }
 }
 
-@media (min-width: 960px){
+/* @media (min-width: 960px){
     .contenedor{
         width: 100% !important;
     }
@@ -271,4 +270,4 @@ textarea:focus{
         max-width: 65%;
         margin:0 auto;
     }
-}
+} */

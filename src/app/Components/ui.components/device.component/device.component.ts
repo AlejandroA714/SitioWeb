@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TimerService } from 'src/services/timer.service';
 
 @Component({
   templateUrl: './device.component.html',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeviceComponent implements OnInit {
 
-  constructor() { }
+  TIME =240;
+  constructor(private TIMER: TimerService) { }
 
   ngOnInit(): void {
+    this.TIMER.suscribe(()=>{
+      this.TIME--;
+    })
   }
 
 }

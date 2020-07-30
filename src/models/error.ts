@@ -1,4 +1,5 @@
-export type ERROR_TYPE = "SUCCESS" | "INFO" | "WARNING" | "DANGER"
+import { ERROR_TYPE } from './types';
+
 
 export interface ERROR_INTERFACE {
     OCURRED:boolean;
