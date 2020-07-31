@@ -27,8 +27,8 @@ export class ObjectId{
         }).toLowerCase();
     };
 
-    toString(){
-        return this.Object;
+    public toString(){
+        return this.Object != null ? this.Object : "";
     }
 
 }
@@ -72,7 +72,11 @@ export class GUID{
         }
 
     public toString(){
-        return this.GUID_;
+        return this.GUID_ != null ? this.GUID_ : "";;
+    }
+
+    public clone(){
+        return Object.assign( Object.create( Object.getPrototypeOf(GUID)), GUID)
     }
 
 }

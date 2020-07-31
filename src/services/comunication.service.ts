@@ -8,6 +8,6 @@ import { Event } from '../models/event';
 
 export class ComunicationService{
 
-    loadWorkSpace = new Event<string>();
+    workspace_updated = new Event<string>();
 
 }

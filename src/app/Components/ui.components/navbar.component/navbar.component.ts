@@ -15,7 +15,7 @@ export class navbarComponent implements OnInit {
   
   IS_HANDED: Observable<boolean> = this.breakpointObserver.observe( [ Breakpoints.Handset,Breakpoints.Small  ] )
                                   .pipe(
-                                        map(result =>  result.matches ),
+                                        map(result => result.matches ),
                                         shareReplay()
                                   );
 

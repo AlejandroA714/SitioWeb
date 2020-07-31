@@ -9,3 +9,19 @@ export interface USER {
     Tipo:USER_TYPE;
     Enabled:Boolean;
 }
+
+
+class Usario implements USER {
+
+    
+    id: Number;
+    Nombres: string;
+    Usuario: string;
+    Email: string;
+    Password: string;
+    Tipo: USER_TYPE;
+    Enabled: Boolean;
+
+
+
+}

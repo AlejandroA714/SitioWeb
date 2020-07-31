@@ -22,6 +22,14 @@ export class Crypter {
         this.SECURE_STORAGE.setItem(KEY,DATA)
     }
 
+    public static ENCRYPT (DATA:any) { 
+        return (CryptoJS.AES.encrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString();
+    }
+
+    public static DECRYPT (DATA:any) { 
+        return (CryptoJS.AES.decrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString(CryptoJS.enc.Utf8);
+    }
+
     public static getItem(KEY:string){
         return (this.SECURE_STORAGE.getItem(KEY)  != undefined ? this.SECURE_STORAGE.getItem(KEY) : null );
     }
@@ -49,5 +57,4 @@ export class Crypter {
         }
         return result;
     }
-
 }

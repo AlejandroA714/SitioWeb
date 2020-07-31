@@ -1,4 +1,4 @@
-<div *ngIf="WORKSPACES_LIST_OBSERVABLE | async as WORKSPACES_LIST; else LOADING_ERROR" style="height: 100%;" >
+<div *ngIf="WORKSPACES_LIST$ | async as WORKSPACES_LIST; else LOADING_ERROR" style="height: 100%;" >
   <div fxLayout="column" fxLayoutAlign="center center" style="height: 90%;" *ngIf="WORKSPACES_LIST.length == 0" >
     <img  src="assets/images/Empty.png">
     <h4 class="text-muted font-weight-bold text-center"> ¡Vacio! </h4>    

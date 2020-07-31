@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("./toastr.css");
 
 span,button:focus {
     outline: none;
@@ -147,3 +148,6 @@ mat-sidenav.md-closed.md-locked-open-add-active {
     display: inherit;
     transform: inherit; 
 }
+
+
+  

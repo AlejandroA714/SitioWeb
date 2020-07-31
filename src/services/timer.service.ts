@@ -14,7 +14,7 @@ export class TimerService {
     }
 
     constructor(){
-        setInterval(()=> { console.log("second elapsed"); this.SUBJECT.next()},1000);
+        setInterval(()=> {  this.SUBJECT.next()},1000);
     }
     
 }

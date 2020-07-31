@@ -10,6 +10,7 @@ import { unathorizedComponent } from 'src/app/Components/ui.components/unathoriz
 import { SharedModule } from '../Modules/shared.module/shared.module';
 import { TimerService } from 'src/services/timer.service';
 import { isNull } from 'util';
+import { ToastrModule } from 'ngx-toastr';
 
 const JWT_Module_Options: JwtModuleOptions = {
   config: {
@@ -32,6 +33,7 @@ export function tokenGetter(){
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     SharedModule,
     JwtModule.forRoot(JWT_Module_Options),
     AppRoutingModule

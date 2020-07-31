@@ -3,13 +3,16 @@ import { ComunicationService } from 'src/services/comunication.service';
 import { DeviceComponent } from '../ui.components/device.component/device.component';
 import { TimerService } from 'src/services/timer.service';
 import { Crypter } from 'src/services/crypter.service';
-import { isUndefined, isNullOrUndefined } from 'util';
+import { isUndefined, isNullOrUndefined, isNull } from 'util';
 import { ERROR } from 'src/models/error';
+import { DevicesService } from 'src/services/devices.service';
+import { indexedDB } from 'src/services/indexedDB.service';
+import { Workspace } from 'src/models/workspace';
+import { Dispositivo } from '../../../models/workspace';
 
 @Component({
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  providers: [TimerService]
 })
 export class MainComponent {
 
@@ -17,30 +20,36 @@ export class MainComponent {
   @ViewChild("Container", { read: ViewContainerRef }) container;
   componentRef: ComponentRef<DeviceComponent>;
   
-  constructor( private COMUNICATION_SERVICE: ComunicationService, private RESOLVER: ComponentFactoryResolver, private appRef: ApplicationRef ) {}
+  constructor( private COMUNICATION_SERVICE: ComunicationService, private RESOLVER: ComponentFactoryResolver, private appRef: ApplicationRef, private DEVICES_SERVICE: DevicesService, private INDEXdb: indexedDB) {
+    console.log("called constructor")
 
-  ngAfterViewInit(): void {
-    this.COMUNICATION_SERVICE.loadWorkSpace.suscribe( (param) => {
-      this.loadWorkSpace(param);
-    })
-    this.loadWorkSpace()
   }
 
-  loadWorkSpace(id?: string):void{
-    if(isUndefined(id) && !isNullOrUndefined(Crypter.getItem("WORKSPACE_ID"))){
-      id = Crypter.getItem("WORKSPACE_ID")
-    }else if (isNullOrUndefined(id)){ console.log("[INFO] WORKPSACE_ID NOT EXITS "); return; }
-    this.container.clear()
-}
+    async ngAfterViewInit() {
+      this.COMUNICATION_SERVICE.workspace_updated.suscribe( () => {
+        this.createElements();
+      })
+      
+      if(!isNullOrUndefined(await this.INDEXdb.existsWorkSpace())){ //if workSpace exits
+        this.createElements()
+      }  
+  }
+
+  createElements = async () => {
+
+    const ComponentFactory = this.RESOLVER.resolveComponentFactory(DeviceComponent);
+    const workSpace = new Workspace(JSON.parse(Crypter.DECRYPT(await this.INDEXdb.getWorkspace())));
+    console.log(workSpace)
+    //console.log(JSON.parse(Crypter.DECRYPT(workSpace)));
+
+   workSpace.Drivers.forEach( d => {
+
+      this.container.createComponent(ComponentFactory);
+
+      //this.appRef.attachView(componentRef.hostView); //attach to angular component tree
+    });
 
 
-  createElement():void{
-    
-    const ComponentFactory = this.RESOLVER.resolveComponentFactory(DeviceComponent)
-
-    let componentRef = this.container.createComponent(ComponentFactory);
-
-    this.appRef.attachView(componentRef.hostView); //attach to angular component tree
 
   }
 

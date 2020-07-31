@@ -18,7 +18,6 @@ export class RoleGuardService implements CanActivate {
   
     const TOKEN_PAYLOAD = decode(TOKEN);
 
-    console.log(TOKEN_PAYLOAD)
     if ( !this.AUTH_SERVICE.AUTHENTICATED() || TOKEN_PAYLOAD.identity.Tipo !== expectedRole ) 
     {
       this.ROUTER.navigateByUrl('app/unathorized');
