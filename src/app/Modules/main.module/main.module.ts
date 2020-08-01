@@ -12,6 +12,7 @@ import { SharedModule } from '../shared.module/shared.module';
 import { MatIconRegistry } from '@angular/material/icon';
 import { MainComponent } from 'src/app/Components/main.component/main.component';
 import { DeviceComponent } from 'src/app/Components/ui.components/device.component/device.component';
+import { CdkScrollableModule } from '@angular/cdk/scrolling';
 
 const CUSTOM_BREAKPOINT = [
   {
@@ -33,6 +34,7 @@ const CUSTOM_BREAKPOINT = [
     SharedModule,
     MainRoutingModule,
     NavbarModule,
+    CdkScrollableModule
   ],
   providers:[{provide:RouteReuseStrategy,useClass:RouteReuseService},{provide:BREAKPOINT,useValue:CUSTOM_BREAKPOINT,multi:true},AuthGuardService,RoleGuardService]
 })

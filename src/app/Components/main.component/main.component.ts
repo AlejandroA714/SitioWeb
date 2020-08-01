@@ -20,10 +20,8 @@ export class MainComponent {
   @ViewChild("Container", { read: ViewContainerRef }) container;
   componentRef: ComponentRef<DeviceComponent>;
   
-  constructor( private COMUNICATION_SERVICE: ComunicationService, private RESOLVER: ComponentFactoryResolver, private appRef: ApplicationRef, private DEVICES_SERVICE: DevicesService, private INDEXdb: indexedDB) {
-    console.log("called constructor")
-
-  }
+  constructor( private COMUNICATION_SERVICE: ComunicationService, private RESOLVER: ComponentFactoryResolver, 
+               private appRef: ApplicationRef, private DEVICES_SERVICE: DevicesService, private INDEXdb: indexedDB) {}
 
     async ngAfterViewInit() {
       this.COMUNICATION_SERVICE.workspace_updated.suscribe( () => {
@@ -39,15 +37,14 @@ export class MainComponent {
 
     const ComponentFactory = this.RESOLVER.resolveComponentFactory(DeviceComponent);
     const workSpace = new Workspace(JSON.parse(Crypter.DECRYPT(await this.INDEXdb.getWorkspace())));
-    console.log(workSpace)
-    //console.log(JSON.parse(Crypter.DECRYPT(workSpace)));
 
    workSpace.Drivers.forEach( d => {
-
-      this.container.createComponent(ComponentFactory);
-
-      //this.appRef.attachView(componentRef.hostView); //attach to angular component tree
+      
+      let componentRef = this.container.createComponent(ComponentFactory);
+      componentRef.instance.DEVICE = d;
     });
+
+    //this.appRef.attachView(componentRef.hostView); //attach to angular component tree
 
 
 

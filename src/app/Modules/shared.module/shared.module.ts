@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -30,7 +31,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     HttpClientModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
 })
 export class SharedModule { }

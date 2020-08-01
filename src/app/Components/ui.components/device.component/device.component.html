@@ -1,21 +1,40 @@
  <div class="border driver" fxLayout="column" >
  <div fxFlex="90" fxLayout="row" fxLayoutGap="7px">
-        <div fxLayout="column" fxFlex="60" fxLayoutAlign="space-between" class="m-1" fxLayoutGap="5px">
-            <span class="Title" fxFlex="1">Titulo</span>   
+        <div fxLayout="column" fxFlex="50" fxLayoutAlign="space-between" class="m-1" fxLayoutGap="5px">
+            <span class="Title" fxFlex="1">{{ DEVICE.Nombre }}</span>   
             <div fxFlex="10" fxLayout="row" class="with-icon">
-                <span class="ml-2 mb-0 responsive-font">Estado:</span><p id="DriverlblStatus" class="disconect bd-highlight mt-2_7 ml-1 mr-1"></p><span class="bd-highlight responsive-font" id="DriverStatus">Desconocido</span>
+                <span class="ml-2 mb-0 responsive-font">Estado:</span>
+                <p class="disconect bd-highlight mt-2_7 ml-1 mr-1"></p>
+                <span class="bd-highlight responsive-font">Desconocido</span>
             </div>
-            <img class="img-fluid" fxFlex="85" src="assets/images/NoImage.png" alt="" srcset="" fxFlexFill>
+            <img class="img-fluid" fxFlex="85" [src]="IMAGE_PATH" alt="" srcset="" fxFlexFill>
         </div>
-        <div fxLayout="column" fxFlex="40" class="m-2" fxLayoutGap="10px">
-            <span fxFlex="10" fxLayoutAlign="end center" class="mt-2 mb-0 responsive-font">Actualizando en {{ TIME }}</span>   
-            <div fxFlex="90" class=""></div>
+        <div fxLayout="column" fxFlex="50" class="m-2" fxLayoutGap="15px">
+            <span fxFlex="10" [ngSwitch]="CURRENT_STATE" fxLayoutAlign="end center" class="mt-2 mb-0 responsive-font">
+                <span *ngSwitchCase="0">¡No hay variables!</span>
+                <span *ngSwitchCase="1">Actualizando en {{ UPDATE_TIME }}</span>
+                <span *ngSwitchCase="2">Actualizando... <img width="25" height="25" src="assets/images/loading.gif"></span>
+                <span *ngSwitchDefault>¡Error!</span>
+            </span>   
+            <div fxFlex="90" class="variables p-1" >
+                <div class="variable" *ngFor="let v of DEVICE.Variables">
+                    <span fxFlex="65" fxLayoutAlign="start" class="wrapper vTitle">{{ v.Nombre }}</span>
+                    <span [ngSwitch]="v.IsOutput" fxFlex="35" fxLayoutAlign="center">
+                        <span [ngSwitch]="v.Analogic" *ngSwitchCase="true">
+                            <span *ngSwitchCase="true"  class="bd-highlight ml-3"><input type="number" min="0" max="255" value="255" class="form-control vEscrituraA" ></span>
+                            <span *ngSwitchCase="false"  class="bd-highlight ml-3"><button class="btn vEscrituraD font" [ngClass]="(v.Valor > 0) ? 'btn-success':'btn-danger'" [innerText]="(v.Valor > 0) ? 'on':'off'" >Off</button></span>
+                        </span>
+                        <span [ngSwitch]="v.Analogic" *ngSwitchCase="false">
+                            <span *ngSwitchCase="true" class="bd-highlight ml-3">{{v.Valor}}</span>
+                            <p *ngSwitchCase="false" class="bd-highlight ml-3 vLecturaD"></p>
+                        </span>
+
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
     <div fxFlex="10">
-        <span class=" responsive-font  font-single ml-2">Ultima Vez: 26/07/20 15:17:00pm</span>
+        <span class=" responsive-font  font-single ml-2">Ultima Vez: {{ DEVICE.LastUpdate }}</span>
     </div>
 </div>
-
-
-<!-- fxFlex.gt-lg="18"  fxFlex.lg="23" fxFlex.md="32" fxFlex.sm="46" fxFlex.sd="70" fxFlex.xs="95" -->

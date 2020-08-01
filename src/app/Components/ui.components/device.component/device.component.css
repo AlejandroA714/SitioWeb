@@ -4,22 +4,8 @@
     font-weight: bold;
     margin-top:15px;
     margin-right: 0px;
-    height: auto;
-    max-width: 300px;
-}
-
-.font{
-    font-weight: bold;
-}
-.font-single{
-    font-family: 'Roboto';
-}
-
-.textarea{
-    resize: none; border:none;
-}
-.textarea-h3{
-    resize: none; border:none; font-size: 1.25rem;
+    height: 260px;
+    max-width: 380px;
 }
 .Title{
     position: relative;
@@ -27,7 +13,6 @@
     left: 2px;
     font-size: 18px;
 }
- 
 .online {
     width: 15px;
     height: 15px;
@@ -40,17 +25,59 @@
     background: red;
     border-radius: 50%
 }
-.digital{
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background:grey;
-}
 .disconect {
     width: 15px;
     height: 15px;
     background: grey;
     border-radius: 50%
+}
+.variables{
+    overflow-y: auto;
+    height: 75%;
+}
+.variable{
+    height: 18%;
+}
+.vTitle{
+    height: 22px;
+    width: 62%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.vLecturaD{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color:grey;
+}
+.vEscrituraA{
+    height: 20px;
+    width:47px;
+    padding: 0;
+    background-color: transparent;;
+}
+.vEscrituraD{
+    height: 30px;
+    width:30px;
+    padding: 0;
+}
+
+
+
+
+
+.font{
+    font-weight: bold;
+    font-family: 'Roboto';
+}
+/* .font-single{
+    font-family: 'Roboto';
+} 
+.textarea{
+    resize: none; border:none;
+}
+.textarea-h3{
+    resize: none; border:none; font-size: 1.25rem;
 }
 .break:before{ 
     display: block;
@@ -74,27 +101,8 @@ textarea:focus{
     outline: none;
 }
 
-.variables{
-    overflow-y: auto;
-    height: 75%;
-}
-.vTitle{
-    height: 22px;
-    width: 62%;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-.vEscrituraA{
-    height: 25px;
-    width:47px;
-    padding: 0;
-}
-.vEscrituraD{
-    height: 25px;
-    width:30px;
-    padding: 0;
-}
-.button{
+
+button{
     font-family: 'Segoe UI';
     font-weight: bold;
     border: 1px solid black;
@@ -240,7 +248,7 @@ textarea:focus{
     }
 }
 
-/* @media (min-width: 960px){
+@media (min-width: 960px){
     .contenedor{
         width: 100% !important;
     }
@@ -270,4 +278,4 @@ textarea:focus{
         max-width: 65%;
         margin:0 auto;
     }
-} */
+}  */

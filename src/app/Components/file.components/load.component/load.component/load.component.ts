@@ -38,7 +38,7 @@ export class LoadComponent {
       this.Devices_Service.abrirProyecto(id).subscribe((reponse:Workspace) => {
         this.indexedDB.createWorkspace(reponse);
         this.COMUNICATION_SERVICE.workspace_updated.perfom(id); //Send message that project should be load
-        //this.ROUTER.navigateByUrl("/app/main");
+        this.ROUTER.navigateByUrl("/app/main");
       },() => this.toastr.error("Fallo al cargar el proyecto","¡Error!"))
       
     }

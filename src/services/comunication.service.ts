@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core'
-import { Observable, Subject } from 'rxjs';
 import { Event } from '../models/event';
 
 @Injectable({
@@ -9,5 +8,6 @@ import { Event } from '../models/event';
 export class ComunicationService{
 
     workspace_updated = new Event<string>();
+    toogle_sidebar = new Event<boolean>();
 
 }

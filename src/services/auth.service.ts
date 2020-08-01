@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 
 export class AuthService{
 
-    private URL:string = "http://127.0.0.1:8080/Sesion/{0}";
-    //private URL:string = "https://apiscada.herokuapp.com/Sesion/{0}";
+    //private URL:string = "http://127.0.0.1:8080/Sesion/{0}";
+    private URL:string = "https://apiscada.herokuapp.com/Sesion/{0}";
 
     constructor( private HTTP: HttpClient, private JWTHelper: JwtHelperService, private ROUTER: Router){
     }
