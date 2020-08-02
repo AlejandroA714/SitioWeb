@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Workspace, Variable } from '../models/workspace';
 import { map } from 'rxjs/operators';
+import { Response } from '../models/response';
 
 @Injectable({
     providedIn: "root"
@@ -27,11 +28,19 @@ export class DevicesService{
         ) ;
     }
 
-    public LeerSensor(Id:string,token:string,variables:Variable[]): Observable<any>{
+    public leerSensor(Id:string,token:string,variables:Variable[]): Observable<any>{
         return this.HTTP_CLIENT.post<Variable[]>(this.URL.format("LeerSensor/{0}/{1}".format(Id,token)),variables.map( (v) => v.toJSON() ),{headers:{ ignoreLoadingBar:"true" }} ).pipe(
             map( (v:Variable[]) => v.map((v) => new Variable(v)) )
         );
     }
+
+    public actualizarSensor(Id:string,token:string,v:Variable){
+        return this.HTTP_CLIENT.post(this.URL.format("ActualizarVariable/{0}/{1}".format(Id,token)),v.toJSON(),{headers:{ ignoreLoadingBar:"true" }} ).pipe(
+            map( (response) => new Response(response))
+        )
+    }
+
+
 
 
 

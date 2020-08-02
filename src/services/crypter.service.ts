@@ -26,8 +26,8 @@ export class Crypter {
         try{
           Crypter.loadKey();
           return (CryptoJS.AES.encrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString();
-        }catch{
-            console.log("[ERROR] Failed to encrypt")
+        }catch (e){
+            console.log("[ERROR] Failed to encrypt " + e)
             return null;
         }
     }
