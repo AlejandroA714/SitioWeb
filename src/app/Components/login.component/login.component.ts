@@ -24,6 +24,7 @@ export class loginComponent implements OnInit {
 
   constructor(private AUTH_SERVICE: AuthService, private CHANGE_DETECTOR: ChangeDetectorRef, private ROUTER: Router, private ROUTE: ActivatedRoute){
     AUTH_SERVICE.deleteSession()
+    
     ROUTE.params.subscribe( (params) => {
         if (!isUndefined(params['error'])){
             this.ERROR.OCURRED = true

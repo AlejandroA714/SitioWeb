@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core';
 import { Crypter } from 'src/services/crypter.service';
-import { TimerService } from 'src/services/timer.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +7,7 @@ import { TimerService } from 'src/services/timer.service';
 })
 export class AppComponent {
   
-  constructor(){ Crypter.loadKey(); new TimerService() }
+  constructor(){ }
   
-  @HostListener('window:beforeunload', ['$event'])
-  onBeforeUnload(evt) {
-    Crypter.saveKey();
-    return true;
-  }
+
 }

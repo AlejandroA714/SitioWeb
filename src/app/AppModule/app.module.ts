@@ -9,12 +9,14 @@ import { JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { unathorizedComponent } from 'src/app/Components/ui.components/unathorized.component/unathorized.component';
 import { SharedModule } from '../Modules/shared.module/shared.module';
 import { TimerService } from 'src/services/timer.service';
-import { isNull } from 'util';
+import { isNullOrUndefined } from 'util';
 import { ToastrModule } from 'ngx-toastr';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 const JWT_Module_Options: JwtModuleOptions = {
   config: {
-      tokenGetter:(() => !isNull(Crypter.getItem("SESSION")) ? Crypter.getItem("SESSION")["access_token"] : null) ,
+      tokenGetter:(() => !isNullOrUndefined(Crypter.getItem("SESSION")) ? Crypter.getItem("SESSION")["access_token"] : undefined ) ,
       allowedDomains : ["localhost","127.0.0.1:8080","apiscada.herokuapp.com"],
       headerName: "Authorization",
       authScheme: "Bearer ",
@@ -36,14 +38,14 @@ export function tokenGetter(){
     ToastrModule.forRoot(),
     SharedModule,
     JwtModule.forRoot(JWT_Module_Options),
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
     AppRoutingModule
   ],
-  providers: [Crypter,{provide:BREAKPOINT,useValue:DEFAULT_BREAKPOINTS,multi:true}, TimerService ],
+  providers: [{provide:BREAKPOINT,useValue:DEFAULT_BREAKPOINTS,multi:true}, TimerService, Crypter ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-
 
 declare global{
   interface String {

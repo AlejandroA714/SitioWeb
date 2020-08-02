@@ -10,7 +10,7 @@ export interface WorkspaceParams{
 
 export class Workspace implements WorkspaceParams {
 
-    Id?:ObjectId = new ObjectId().toString();
+    Id?:ObjectId;
     Nombre: string = "";
     Drivers?: Dispositivo[] = []; 
     DriversCount?: number = this.Drivers.length;
@@ -97,7 +97,7 @@ export interface VariableParams{
 
 export class Variable implements VariableParams{
 
-    UnicID?: GUID = new GUID();
+    UnicID?: GUID;
     Nombre: string;
     PIN: string;
     Valor?: number = 0;

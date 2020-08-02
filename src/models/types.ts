@@ -8,8 +8,8 @@ export class ObjectId{
     private Object_Id = null;
     private validator = require('mongoose').Types.ObjectId;
     
-    constructor(ObjectId_str?: string){
-        if (isNullOrUndefined){
+    constructor(ObjectId_str?: string | ObjectId){
+        if (isNullOrUndefined(ObjectId_str)){
             this.Object_Id = ObjectId.GenerateObjectId();
             return;
         }
@@ -17,7 +17,7 @@ export class ObjectId{
             throw new Error("{0} is not a validr objectID".format(ObjectId_str))
         }else{
             this.Object_Id = ObjectId_str;
-        }        
+        }    
     }
 
     public static GenerateObjectId () {
@@ -39,18 +39,18 @@ export class GUID{
     private GUID_ = null;
     
     constructor(GUID_str?: string|GUID){
-        if (isNullOrUndefined){
+        if (isNullOrUndefined(GUID_str)){
             this.GUID_ = GUID.GenerateGUID();
             return;
         }
         if (GUID_str instanceof GUID){
             this.GUID_ = GUID_str.toString()
+        }else{
+            this.GUID_ = GUID_str
         }
         if (!this.pattern.test(this.GUID_)){
             throw new Error("{0} is not a valid GUID".format(GUID_str))
-        }else{
-            this.GUID_ = GUID_str;
-        }     
+        }    
     }
 
     public static GenerateGUID()

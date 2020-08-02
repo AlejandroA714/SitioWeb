@@ -1,17 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { shareReplay, map, filter } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { AuthService } from 'src/services/auth.service';
+import { Crypter } from 'src/services/crypter.service';
+import { ComunicationService } from 'src/services/comunication.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
 })
-export class navbarComponent implements OnInit {
+export class navbarComponent {
+  
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload() {
+    Crypter.saveKey();
+    return true;
+  }
+  
+  constructor(private breakpointObserver: BreakpointObserver, private Route: ActivatedRoute, private Router: Router,
+              private ComunicationService: ComunicationService, private changeDetector:ChangeDetectorRef, public loader: LoadingBarService) {}
 
-  constructor(private breakpointObserver: BreakpointObserver, private ROUTER: Router,private ROUTE: ActivatedRoute, private AUTH_SERVICE: AuthService,) {}
   
   IS_HANDED: Observable<boolean> = this.breakpointObserver.observe( [ Breakpoints.Handset,Breakpoints.Small  ] )
                                   .pipe(
@@ -19,15 +29,24 @@ export class navbarComponent implements OnInit {
                                         shareReplay()
                                   );
 
-  SIDEBAR_ACTIVE: Observable<boolean> = this.ROUTER.events
-                                        .pipe(
-                                          filter((evt) => evt instanceof NavigationEnd ),
-                                          map((result) => { return ['file','settings','reports','unathorized'].includes(this.ROUTE.snapshot.firstChild.url[0].path)}),
-                                          shareReplay()                  
-                                        ) 
+  SIDEBAR_ACTIVE: Observable<boolean> = this.ComunicationService.toogle_sidebar.EVENT$;
 
-  ngOnInit(): void {
-    //this.ROUTER.navigate(['app',this.ROUTE.snapshot.firstChild.url[0].path]);
-  }              
+  ngAfterViewInit(): void {
+
+    this.Router.events.pipe(
+      filter( (evt) => evt instanceof NavigationEnd)
+    ).subscribe(()=> this.sidebarToogle())
+    this.sidebarToogle()
+    this.changeDetector.detectChanges();
+  }
+
+  sidebarToogle(){
+    if(['file','settings','reports','unathorized'].includes(this.Route.snapshot.firstChild.url[0].path)){
+      this.ComunicationService.toogle_sidebar.perfom(true);
+    }else{
+      this.ComunicationService.toogle_sidebar.perfom(false);
+    }
+  }
+  
                                 
 }

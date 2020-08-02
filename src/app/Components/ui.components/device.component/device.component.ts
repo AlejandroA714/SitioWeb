@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { TimerService } from 'src/services/timer.service';
 import { Dispositivo } from 'src/models/workspace';
 import { Variable } from 'src/models/workspace';
-import { DevicesService } from '../../../../services/devices.service';
+import { DevicesService } from 'src/services/devices.service';
 
 @Component({
   templateUrl: './device.component.html',
@@ -11,6 +11,7 @@ import { DevicesService } from '../../../../services/devices.service';
 })
 export class DeviceComponent implements OnInit {
 
+  RGBColor = require('rgbcolor'); 
   DEVICE:Dispositivo = new Dispositivo();
   CURRENT_STATE:number = 0|1|2|3; // 0:Died, 1: Waiting for update, 2: Updating
   IMAGE_PATH; 
@@ -26,8 +27,6 @@ export class DeviceComponent implements OnInit {
     this.VariablesLectura = this.DEVICE.Variables.filter((v:Variable) => !v.IsOutput)
     this.VariablesEscritura = this.DEVICE.Variables.filter((v:Variable) => v.IsOutput)
     
-    //this.VariablesLectura[0].Nombre  = "editado"
-
     if(this.VariablesLectura.length > 0){
       this.CURRENT_STATE = 1;
       this.TIMER.suscribe(()=>{
@@ -44,11 +43,14 @@ export class DeviceComponent implements OnInit {
 
 
   private actualizarVariables(){
-    this.devices_Service.LeerSensor(this.DEVICE.ID,this.DEVICE.Token,this.VariablesLectura).subscribe( (response) => {
-      console.log(response)
+    this.devices_Service.LeerSensor(this.DEVICE.ID,this.DEVICE.Token,this.VariablesLectura).subscribe( (response:Variable[]) => {
+      
       this.UPDATE_TIME = this.DEVICE.Time;
       this.CURRENT_STATE = 1;
-
+      console.log(response)
+      this.VariablesLectura.map( (v) => {
+          v.Valor = response.find( variable => variable.UnicID.toString() == v.UnicID.toString()).Valor
+        });
     });
   }
 

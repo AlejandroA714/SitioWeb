@@ -1,14 +1,11 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ComponentFactory, ApplicationRef, Injector, EmbeddedViewRef } from '@angular/core';
 import { ComunicationService } from 'src/services/comunication.service';
 import { DeviceComponent } from '../ui.components/device.component/device.component';
-import { TimerService } from 'src/services/timer.service';
 import { Crypter } from 'src/services/crypter.service';
-import { isUndefined, isNullOrUndefined, isNull } from 'util';
+import { isNullOrUndefined } from 'util';
 import { ERROR } from 'src/models/error';
-import { DevicesService } from 'src/services/devices.service';
 import { indexedDB } from 'src/services/indexedDB.service';
 import { Workspace } from 'src/models/workspace';
-import { Dispositivo } from '../../../models/workspace';
 
 @Component({
   templateUrl: './main.component.html',
@@ -20,9 +17,11 @@ export class MainComponent {
   @ViewChild("Container", { read: ViewContainerRef }) container;
   componentRef: ComponentRef<DeviceComponent>;
   
-  constructor( private COMUNICATION_SERVICE: ComunicationService, private RESOLVER: ComponentFactoryResolver, 
-               private appRef: ApplicationRef, private DEVICES_SERVICE: DevicesService, private INDEXdb: indexedDB) {}
-
+  constructor(private COMUNICATION_SERVICE: ComunicationService, private RESOLVER: ComponentFactoryResolver, 
+              private INDEXdb: indexedDB, private ComunicationService : ComunicationService) {
+                this.ComunicationService.toogle_sidebar.perfom(false);
+              }
+      
     async ngAfterViewInit() {
       this.COMUNICATION_SERVICE.workspace_updated.suscribe( () => {
         this.createElements();
@@ -36,9 +35,9 @@ export class MainComponent {
   createElements = async () => {
 
     const ComponentFactory = this.RESOLVER.resolveComponentFactory(DeviceComponent);
-    const workSpace = new Workspace(JSON.parse(Crypter.DECRYPT(await this.INDEXdb.getWorkspace())));
-
-   workSpace.Drivers.forEach( d => {
+    if(Crypter.DECRYPT(await this.INDEXdb.getWorkspace()) == null ){ this.ERROR.OCURRED = true;return;}
+    const workSpace = new Workspace(JSON.parse(Crypter.DECRYPT(await this.INDEXdb.getWorkspace())))
+    workSpace.Drivers.forEach( d => {
       
       let componentRef = this.container.createComponent(ComponentFactory);
       componentRef.instance.DEVICE = d;
@@ -55,42 +54,11 @@ export class MainComponent {
     this.ERROR.OCURRED = true;
     this.ERROR.MESSAGE = "Fallo al contactar al servicio SCADA"
     this.ERROR.TYPE = "DANGER";
-}
-
-FINISHED_CALLBACK = () => {
-    //this.PERFORMING_TRANSACTION = false;
-    //this.CHANGE_DETECTOR.detectChanges()
-}
-
-}
-/*  */
-
-/* @Component({
-  selector: 'my-app',
-  template: `
-    <template #alertContainer></template>
-    <button (click)="createComponent('success')">Create success alert</button>
-    <button (click)="createComponent('danger')">Create danger alert</button>
-  `,
-})
-export class App {
- @ViewChild("alertContainer", { read: ViewContainerRef }) container;
- componentRef: ComponentRef;
- 
-  constructor(private resolver: ComponentFactoryResolver) {}
-  
-  createComponent(type) {
-    this.container.clear();
-    const factory: ComponentFactory = this.resolver.resolveComponentFactory(AlertComponent);
-
-    this.componentRef = this.container.createComponent(factory);
-    
-    this.componentRef.instance.type = type;
-
-    this.componentRef.instance.output.subscribe(event => console.log(event));
-
   }
-  
-    ngOnDestroy() {
-      this.componentRef.destroy();    
-    } */
+
+  FINISHED_CALLBACK = () => {
+      //this.PERFORMING_TRANSACTION = false;
+      //this.CHANGE_DETECTOR.detectChanges()
+  }
+
+}

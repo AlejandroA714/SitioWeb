@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ɵConsole } from '@angular/core';
 import { SharedModule } from '../shared.module/shared.module';
 import { LoadComponent } from 'src/app/Components/file.components/load.component/load.component/load.component';
 import { FileRoutingModule } from './file-routing.module';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   declarations: [ LoadComponent ],
@@ -11,8 +12,8 @@ import { MatCardModule } from '@angular/material/card';
     SharedModule,
     CommonModule,
     FileRoutingModule,
-    MatCardModule
+    MatCardModule,
   ]
 })
 
-export class FileModule { }
+export class FileModule {}

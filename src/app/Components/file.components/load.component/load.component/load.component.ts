@@ -35,9 +35,10 @@ export class LoadComponent {
   btnAbrir_Click(id:string){
     if (confirm("¿Seguro que desea cargar este proyecto?")){
       Crypter.setItem("WORKSPACE_ID",id);
-      this.Devices_Service.abrirProyecto(id).subscribe((reponse:Workspace) => {
-        this.indexedDB.createWorkspace(reponse);
-        this.COMUNICATION_SERVICE.workspace_updated.perfom(id); //Send message that project should be load
+      this.Devices_Service.abrirProyecto(id).subscribe((response:Workspace) => {
+        console.log(response)
+        this.indexedDB.createWorkspace(response);
+        this.COMUNICATION_SERVICE.workspace_updated.perfom(response.Id.toString()); //Send message that project should be load
         this.ROUTER.navigateByUrl("/app/main");
       },() => this.toastr.error("Fallo al cargar el proyecto","¡Error!"))
       

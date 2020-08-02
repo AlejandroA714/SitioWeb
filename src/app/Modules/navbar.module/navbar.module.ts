@@ -5,6 +5,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SharedModule } from '../shared.module/shared.module';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 @NgModule({
   declarations: [ navbarComponent ],
@@ -14,6 +15,7 @@ import { SharedModule } from '../shared.module/shared.module';
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
+    LoadingBarModule
   ]
 })
 

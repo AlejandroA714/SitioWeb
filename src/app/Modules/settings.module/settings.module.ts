@@ -12,4 +12,4 @@ import { CommonModule } from '@angular/common';
   ]
 })
 
-export class SettingsModule { }
+export class SettingsModule {}

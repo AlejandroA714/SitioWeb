@@ -65,7 +65,10 @@
     </mat-accordion>
   </mat-sidenav>
   
-  <mat-sidenav-content  >     
+  <mat-sidenav-content>
+    <ngx-loading-bar ></ngx-loading-bar>
+<!--     <ngx-loading-bar mode="indeterminate" [fixed]="false" ref="router"></ngx-loading-bar> -->
+    <!-- <mat-progress-bar mode="determinate" [fixed]="false" [value]="loader.value$ | async"></mat-progress-bar>  -->
     <router-outlet>
     </router-outlet>  
   </mat-sidenav-content>

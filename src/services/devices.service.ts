@@ -23,12 +23,12 @@ export class DevicesService{
 
     public abrirProyecto(Id:String): Observable<Workspace>{
         return this.HTTP_CLIENT.get(this.URL.format("Abrir/{0}".format(Id))).pipe(
-            map( (item:Workspace) => new Workspace(item))
+            map( (item:Workspace) => new Workspace(item) )
         ) ;
     }
 
     public LeerSensor(Id:string,token:string,variables:Variable[]): Observable<any>{
-        return this.HTTP_CLIENT.post<Variable[]>(this.URL.format("LeerSensor/{0}/{1}".format(Id,token)),variables.map( (v) => v.toJSON() ) ).pipe(
+        return this.HTTP_CLIENT.post<Variable[]>(this.URL.format("LeerSensor/{0}/{1}".format(Id,token)),variables.map( (v) => v.toJSON() ),{headers:{ ignoreLoadingBar:"true" }} ).pipe(
             map( (v:Variable[]) => v.map((v) => new Variable(v)) )
         );
     }

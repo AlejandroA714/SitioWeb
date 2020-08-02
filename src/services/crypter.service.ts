@@ -14,8 +14,8 @@ export class Crypter {
 
     public static SECURE_STORAGE = new SECURE_STORAGE_IMPORT( sessionStorage ,
                                                     {   hash: function hash(key) { key = CryptoJS.SHA256(key, Crypter.SECRET_KEY);return key.toString(); },
-                                                        encrypt: function ENCRYPT (DATA:any) { return (CryptoJS.AES.encrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString();}, 
-                                                        decrypt: function DECRYPT (DATA:any) { return (CryptoJS.AES.decrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString(CryptoJS.enc.Utf8);}
+                                                        encrypt: Crypter.ENCRYPT , 
+                                                        decrypt: Crypter.DECRYPT
                                                     });
                                                     
     public static setItem(KEY:string,DATA:any){
@@ -23,11 +23,23 @@ export class Crypter {
     }
 
     public static ENCRYPT (DATA:any) { 
-        return (CryptoJS.AES.encrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString();
+        try{
+          Crypter.loadKey();
+          return (CryptoJS.AES.encrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString();
+        }catch{
+            console.log("[ERROR] Failed to encrypt")
+            return null;
+        }
     }
 
     public static DECRYPT (DATA:any) { 
-        return (CryptoJS.AES.decrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString(CryptoJS.enc.Utf8);
+        try{
+            Crypter.loadKey();
+            return (CryptoJS.AES.decrypt(DATA,Crypter.SECRET_KEY,{iv:Crypter.IV})).toString(CryptoJS.enc.Utf8);
+        }catch(e){
+            console.log("[ERROR] Failed to decrypt " + e)
+            return null;
+        }
     }
 
     public static getItem(KEY:string){
@@ -46,6 +58,11 @@ export class Crypter {
             sessionStorage.removeItem("TMP_CRYPTO_KEY");
             sessionStorage.removeItem("TMP_CRYPTO_IV");
         }
+    }
+
+    public static generateKeys(){
+        Crypter.SECRET_KEY = this.RandomKey()
+        Crypter.IV = this.RandomKey()
     }
 
     public static RandomKey(lenght = 63) { 

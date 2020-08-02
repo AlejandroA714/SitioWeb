@@ -14,7 +14,7 @@ export class TimerService {
     }
 
     constructor(){
-        setInterval(()=> {  this.SUBJECT.next()},1000);
+        setInterval(()=> {  this.SUBJECT.next() },1000);
     }
     
 }
