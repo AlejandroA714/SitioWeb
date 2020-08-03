@@ -12,8 +12,8 @@ import { Response } from '../models/response';
 
 export class DevicesService{
 
-    //private URL:string = "http://127.0.0.1:8080/Controles/{0}";
-    private URL:string = "https://apiscada.herokuapp.com/Controles/{0}";
+    private URL:string = "http://127.0.0.1:8080/Controles/{0}";
+    //private URL:string = "https://apiscada.herokuapp.com/Controles/{0}";
 
     constructor(private HTTP_CLIENT: HttpClient,private AUTH_SERVICE: AuthService){}
 

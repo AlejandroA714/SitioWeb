@@ -13,7 +13,8 @@
                     <span *ngSwitchDefault>¡Error!</span>
                 </span> 
             </div>
-            <img class="img-fluid" fxFlex="85" [src]="IMAGE_PATH" alt="" srcset="" fxFlexFill>
+            <input type="file" accept=".jpeg,.jpg,.png"  class="d-none" #ImageSelector multiple="false" (change)="uploadImage($event.target.files)">
+            <img class="img-fluid" fxFlex="85" (dblclick)="ImageSelector.click()" [src]="IMAGE_PATH" alt="" srcset="" fxFlexFill>
         </div>
         <div fxLayout="column" fxFlex="50" class="m-2" fxLayoutGap="15px">
             <span fxFlex="10" [ngSwitch]="CURRENT_STATE" fxLayoutAlign="end center" class="mt-2 mb-0 responsive-font">
@@ -23,12 +24,17 @@
                 <span *ngSwitchDefault>¡Error!</span>
             </span>   
             <div fxFlex="90" class="variables p-1">
+                <div fxFlex="100" fxLayoutAlign="center center" fxLayout="column" *ngIf="DEVICE.Variables.length == 0">
+                    <img src="assets/images/Empty.png" width="64" height="64">
+                    <span>¡Vacio!</span>
+                </div>
+                
                 <div class="variable" *ngFor="let v of DEVICE.Variables">
                     <span fxFlex="65" fxLayoutAlign="start" class="wrapper vTitle">{{ v.Nombre }}</span>
                     <span [ngSwitch]="v.IsOutput" fxFlex="35" fxLayoutAlign="center">
                         <span [ngSwitch]="v.Analogic" *ngSwitchCase="true">
-                            <span *ngSwitchCase="true" class="bd-highlight ml-3"><input #output (change)="actualizarVariable(v)" type="number" min="0" max="255" [(ngModel)]="v.Valor" class="form-control vEscrituraA d-inline-block" ></span>
-                            <span *ngSwitchCase="false" class="bd-highlight ml-3"><button #output (click)="v.Valor = v.Valor > 0 ? 0:1" (click)="actualizarVariable(v)" class="btn vEscrituraD font" [ngClass]="(v.Valor > 0) ? 'btn-success':'btn-danger'" [innerText]="(v.Valor > 0) ? 'on':'off'" >Off</button></span>
+                            <span *ngSwitchCase="true" class="bd-highlight ml-3"><input #output type="number" min="0" max="255" (ngModelChange)="actualizarVariable(v,v.Valor,$event)" [(ngModel)]="v.Valor"  class="form-control vEscrituraA d-inline-block" ></span>
+                            <span *ngSwitchCase="false" class="bd-highlight ml-3"><button #output (click)="v.Valor = v.Valor > 0 ? 0:1" (click)="actualizarVariable(v,v.Valor > 0 ? 0:1,v.Valor)" class="btn vEscrituraD font" [ngClass]="(v.Valor > 0) ? 'btn-success':'btn-danger'" [innerText]="(v.Valor > 0) ? 'on':'off'" >Off</button></span>
                         </span>
                         <span [ngSwitch]="v.Analogic" *ngSwitchCase="false">
                             <span *ngSwitchCase="true" class="bd-highlight ml-3">{{v.Valor}}</span>
