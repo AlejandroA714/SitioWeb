@@ -7,6 +7,7 @@ import { DevicesService } from 'src/services/devices.service';
 import { Response } from 'src/models/response';
 import { FileUploadService } from '../../../../services/file-upload.service';
 import { ToastrService } from 'ngx-toastr';
+import { indexedDB } from 'src/services/indexedDB.service';
 
 @Component({
   templateUrl: './device.component.html',
@@ -25,7 +26,7 @@ export class DeviceComponent implements OnInit {
   VariablesEscritura:Variable[];
   UPDATE_TIME:number;
   constructor(private TIMER: TimerService,private DomSanitizer: DomSanitizer, private devices_Service: DevicesService, 
-              private FileUploadService:FileUploadService, private ToastrService: ToastrService) { }
+              private FileUploadService:FileUploadService, private ToastrService: ToastrService, private dbService: indexedDB) { }
 
   ngOnInit(): void {
     this.CURRENT_STATE = 0;
@@ -50,7 +51,8 @@ export class DeviceComponent implements OnInit {
   private actualizarVariables(){
     this.devices_Service.leerSensor(this.DEVICE.ID,this.DEVICE.Token,this.VariablesLectura).subscribe( (response:Variable[]) => {
       if(response.length == 0){ this.CONEXION_STATE = 2; return;}
-      this.CONEXION_STATE =1;
+      this.CONEXION_STATE = 1;
+      this.dbService.actualizarDispositivo(this.DEVICE);
       this.VariablesLectura.map( (v) => {
           v.Valor = response.find( variable => variable.UnicID.toString() == v.UnicID.toString()).Valor
         });
@@ -69,6 +71,7 @@ export class DeviceComponent implements OnInit {
     this.CURRENT_STATE = 2; // Updating
     this.devices_Service.actualizarSensor(this.DEVICE.ID,this.DEVICE.Token,v).subscribe( (response:Response) => {
       if(response.Success){
+        this.dbService.actualizarDispositivo(this.DEVICE);
         this.CONEXION_STATE=1
       }else{
         v.Valor = previousVale; 
@@ -87,7 +90,7 @@ export class DeviceComponent implements OnInit {
   async uploadImage(files: FileList){
     let validExtensions = "/(image/jpeg|image/jpg|image/png)$/i"
     let base64_str;
-    if (!(files && files[0])){return;}
+    if (!(files || files[0])){return;}
     if((files[0].size/1024) > 32 || !(validExtensions.match(files[0].type))){
       this.ToastrService.error("<strong>¡Archivo Invalido!<br/>Extensiones validas: (jpg, jpeg, png)<br>Tamaño maximo: 32kb</strong>","¡Error!",{enableHtml:true});
       return;

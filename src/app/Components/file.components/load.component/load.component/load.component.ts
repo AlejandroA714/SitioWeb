@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { DevicesService } from 'src/services/devices.service';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { throwError } from 'rxjs';
@@ -19,7 +19,7 @@ export class LoadComponent {
 
   constructor(private Devices_Service: DevicesService,private COMUNICATION_SERVICE: ComunicationService,
               public mediaObserver: MediaObserver,private indexedDB: indexedDB, public ROUTER: Router,public toastr: ToastrService ) { 
-    mediaObserver.media$.subscribe((some )=>{
+    mediaObserver.media$.subscribe(( some )=>{
     });
   }
 
@@ -35,13 +35,11 @@ export class LoadComponent {
   btnAbrir_Click(id:string){
     if (confirm("¿Seguro que desea cargar este proyecto?")){
       Crypter.setItem("WORKSPACE_ID",id);
+      //this.COMUNICATION_SERVICE.workspace_updated.perfom(id); //Send message that project should be load
       this.Devices_Service.abrirProyecto(id).subscribe((response:Workspace) => {
-        console.log(response)
         this.indexedDB.createWorkspace(response);
-        this.COMUNICATION_SERVICE.workspace_updated.perfom(response.Id.toString()); //Send message that project should be load
         this.ROUTER.navigateByUrl("/app/main");
-      },() => this.toastr.error("Fallo al cargar el proyecto","¡Error!"))
-      
+      },() =>  this.toastr.error("Fallo al cargar el proyecto","¡Error!"))
     }
   }
 

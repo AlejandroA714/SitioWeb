@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { openDB, DBSchema, IDBPDatabase } from 'idb';
-import { Workspace } from '../models/workspace';
+import { openDB, DBSchema } from 'idb';
+import { Workspace, Dispositivo } from '../models/workspace';
 import { Crypter } from './crypter.service';
 import { isNullOrUndefined } from 'util';
-import { map } from 'rxjs/operators';
 
 interface SCADA_DB extends DBSchema {
     'scada': {
@@ -21,7 +20,6 @@ export class indexedDB {
     private db = openDB<SCADA_DB>('scada',1,{
                     upgrade(db){
                         db.createObjectStore("scada")
-                        console.log("called update") // code to update code
                     }
                 });
 
@@ -30,8 +28,25 @@ export class indexedDB {
     }
     
     async getWorkspace(){
-     return (await this.db).get("scada","workspace")
-     
+     return JSON.parse(Crypter.DECRYPT( await (await this.db).get("scada","workspace") )) ;
+    }
+
+    async actualizarDispositivo(d:Dispositivo){
+        try{
+            let workspace =  await this.getWorkspace();
+            workspace["Drivers"].map( (dev) => 
+            { 
+                if(dev.UnicID.toString() == d.UnicID.toString() ){
+                    Object.assign(dev,d.toJSON())
+                }
+            });
+            await this.createWorkspace(new Workspace(workspace));
+            return true;
+        }catch(e){
+            console.log("[Error] cannot update device " + e);
+            return false;
+        }
+        
     }
 
     async cleanWorkSpace(){
