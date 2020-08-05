@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LoadComponent } from 'src/app/Components/file.components/load.component/load.component/load.component';
+import { LoadComponent } from 'src/app/Components/file.components/load.component/load.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [

@@ -149,5 +149,23 @@ mat-sidenav.md-closed.md-locked-open-add-active {
     transform: inherit; 
 }
 
+.heading-small{
+    font-size: .75rem;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.form-control-label{
+    font-size: .875rem;
+    font-weight: 600;
+    color: #525f7f;
+}
+
+.bg-secondary{
+    background-color: #f7fafc !important;
+}
+
 
   

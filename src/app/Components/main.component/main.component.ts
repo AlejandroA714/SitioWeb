@@ -5,7 +5,7 @@ import { Crypter } from 'src/services/crypter.service';
 import { isNullOrUndefined } from 'util';
 import { ERROR } from 'src/models/error';
 import { indexedDB } from 'src/services/indexedDB.service';
-import { Workspace, Dispositivo } from 'src/models/workspace';
+import { Workspace } from 'src/models/workspace';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { DevicesService } from 'src/services/devices.service';
@@ -30,6 +30,7 @@ export class MainComponent{
           if (  Crypter.getItem("WORKSPACE_ID") != null ){
             this.Devices_Service.abrirProyecto(Crypter.getItem("WORKSPACE_ID")).subscribe((response:Workspace) => {
               this.indexedDB.createWorkspace(response);
+              //this.createElements()
             },() =>  this.toastr.error("<strong>Fallo al recargar el proyecto<br>Los cambios podrian no reflejarse</strong>","¡Error!",{enableHtml:true}))
           }
         }
@@ -61,7 +62,6 @@ export class MainComponent{
       let componentRef = this.container.createComponent(ComponentFactory);
       componentRef.instance.DEVICE = d;
     });
-  
   }
 
   ERROR_CALLBACK = () => {

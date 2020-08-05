@@ -13,11 +13,11 @@ const routes: Routes = [
 
         {path: 'main',  component:MainComponent , data:{ reuse:true }},
 
-        {path:'file',     loadChildren: () => import('../file.module/file.module').then(m => m.FileModule ), canLoad:[ AuthGuard ]},
+        {path: 'file',     loadChildren: () => import('../file.module/file.module').then(m => m.FileModule ), canLoad:[ AuthGuard ]},
 
-        {path:'settings', loadChildren: () => import('../settings.module/settings.module').then(m => m.SettingsModule ), canLoad:[ AuthGuard ]},
+        {path: 'settings', loadChildren: () => import('../settings.module/settings.module').then(m => m.SettingsModule ), canLoad:[ AuthGuard ]},
 
-        {path:'reports',  loadChildren: () => import('../reports.module/reports.module').then(m => m.ReportsModule), canLoad:[ AuthGuard ]},
+        {path: 'reports',  loadChildren: () => import('../reports.module/reports.module').then(m => m.ReportsModule), canLoad:[ AuthGuard ]},
 
         {path: 'unathorized',component:unathorizedComponent}
       ]

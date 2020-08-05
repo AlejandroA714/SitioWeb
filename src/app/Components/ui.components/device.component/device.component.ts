@@ -49,6 +49,7 @@ export class DeviceComponent implements OnInit {
   }//OnInit
 
   private actualizarVariables(){
+    this.toogleOutputs(false)
     this.devices_Service.leerSensor(this.DEVICE.ID,this.DEVICE.Token,this.VariablesLectura).subscribe( (response:Variable[]) => {
       if(response.length == 0){ this.CONEXION_STATE = 2; return;}
       this.CONEXION_STATE = 1;
@@ -58,6 +59,7 @@ export class DeviceComponent implements OnInit {
         });
     },()=>this.CONEXION_STATE = 3).
     add(()=> {
+      this.toogleOutputs(true)
       this.CURRENT_STATE = 1; 
       this.UPDATE_TIME = this.DEVICE.Time;
     });
@@ -65,9 +67,7 @@ export class DeviceComponent implements OnInit {
 
   actualizarVariable(v:Variable,previousVale:number,nextValue:number){
     v.Valor = nextValue;
-    this.outputs.forEach((element) => {
-      element.nativeElement.disabled =true;
-    })
+    this.toogleOutputs(false);
     this.CURRENT_STATE = 2; // Updating
     this.devices_Service.actualizarSensor(this.DEVICE.ID,this.DEVICE.Token,v).subscribe( (response:Response) => {
       if(response.Success){
@@ -81,10 +81,14 @@ export class DeviceComponent implements OnInit {
            v.Valor = previousVale;
          })
     .add( ()=> {this.VariablesLectura.length > 0 ? this.CURRENT_STATE = 1:this.CURRENT_STATE = 0;      
-                this.outputs.forEach((element) => {
-                  element.nativeElement.disabled =false;
-                })
+                this.toogleOutputs(true)
               });
+  }
+
+  toogleOutputs(enabled:boolean){
+    this.outputs.forEach((element) => {
+      element.nativeElement.disabled = !enabled;
+    })
   }
 
   async uploadImage(files: FileList){
@@ -99,6 +103,7 @@ export class DeviceComponent implements OnInit {
       base64_str = await this.FileUploadService.ImageToByteArray(files[0]);
       this.IMAGE_PATH = this.DomSanitizer.bypassSecurityTrustResourceUrl('data:image/jpeg;base64,{0}'.format(base64_str));
       this.DEVICE.Image = base64_str;
+      this.dbService.actualizarDispositivo(this.DEVICE);
     }catch(e){
       this.ToastrService.error("Fallo al cargar la imagen","¡Error!")
       console.log("[ERROR] Cannot load image " + e)

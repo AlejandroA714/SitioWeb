@@ -10,7 +10,7 @@ export interface WorkspaceParams{
 
 export class Workspace implements WorkspaceParams {
 
-    Id?:ObjectId;
+    Id?:ObjectId = new ObjectId();
     Nombre: string = "";
     Drivers?: Dispositivo[] = []; 
     DriversCount?: number = this.Drivers.length;

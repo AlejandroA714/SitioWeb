@@ -34,8 +34,7 @@ export class LoadComponent {
 
   btnAbrir_Click(id:string){
     if (confirm("¿Seguro que desea cargar este proyecto?")){
-      Crypter.setItem("WORKSPACE_ID",id);
-      //this.COMUNICATION_SERVICE.workspace_updated.perfom(id); //Send message that project should be load
+      Crypter.setItem("WORKSPACE_ID",id); 
       this.Devices_Service.abrirProyecto(id).subscribe((response:Workspace) => {
         this.indexedDB.createWorkspace(response);
         this.ROUTER.navigateByUrl("/app/main");
