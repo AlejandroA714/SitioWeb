@@ -36,17 +36,3 @@ export class FileUploadService {
         });
     }
 }
-
-
-
-/*   PrevisualizarImagen(file,dest){
-    let reader =  new FileReader();
-
-    if(file && file[0]){
-        reader.onload = function (e) {
-            $(dest).attr('src', e.target.result);
-        }
-        reader.readAsDataURL(file[0]);
-    }
-} 
-}*/

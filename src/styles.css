@@ -167,5 +167,38 @@ mat-sidenav.md-closed.md-locked-open-add-active {
     background-color: #f7fafc !important;
 }
 
+.rounded-image{
+    border-radius: 50%;
+}
+
+::ng-deep .Padless .mat-expansion-panel-body{
+    padding: 0 !important;
+}
+.text-sm{
+    font-size: .875rem!important;
+}
+
+.progress{
+    width: 120px;
+    height: 3px;
+    margin: 0;
+}
+
+.progress-bar{
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.fancy-font{
+    font-family: Open Sans,sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    text-align: left;
+    color: #525f7f;
+}
+
 
   

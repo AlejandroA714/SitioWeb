@@ -9,9 +9,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from '@angular/material/menu';
+import { DevicesListComponent } from 'src/app/Components/ui.components/devices-list.component/devices-list.component';
+import { DevicesFormComponent } from 'src/app/Components/ui.components/devices-form/devices-form.component';
 
 @NgModule({
-  declarations: [ LoadComponent, NuevoComponent ],
+  declarations: [ LoadComponent, NuevoComponent, DevicesListComponent, DevicesFormComponent ],
   imports: [
     SharedModule,
     CommonModule,
