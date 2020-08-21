@@ -9,23 +9,39 @@ import { DevicesFormComponent } from '../../ui.components/devices-form/devices-f
 export class NuevoComponent {
 
   @ViewChild("DevicesContainer", { read: ViewContainerRef }) devicesContainer;
-  ComponentRef: ComponentRef<DevicesListComponent>
+  ComponentRefList: ComponentRef<DevicesListComponent>
 
   constructor(private Resolver: ComponentFactoryResolver){}
 
 
   ngAfterViewInit(): void {
-    const ComponentFactory = this.Resolver.resolveComponentFactory(DevicesListComponent)
-    console.log(this.devicesContainer);
-    let elementRef = this.devicesContainer.createComponent(ComponentFactory)
-    console.log(elementRef)
+    this.add()
   }
 
-  toogle(){
-    const componentFactory = this.Resolver.resolveComponentFactory(DevicesFormComponent)
+  edit(){
+
+  }
+
+  add(){
+    const ComponentFactory = this.Resolver.resolveComponentFactory(DevicesFormComponent)
     this.devicesContainer.clear()
-    let elementRef = this.devicesContainer.createComponent(componentFactory)
+    let elementRef = this.devicesContainer.createComponent(ComponentFactory)
+    elementRef.instance.back.suscribe((evt) => {
+      console.log("called back")
+      this.list()
+    })
 
   }
+
+  list(){
+    const ComponentFactory = this.Resolver.resolveComponentFactory(DevicesListComponent)
+    this.devicesContainer.clear()
+    let elementRef = this.devicesContainer.createComponent(ComponentFactory)
+    elementRef.instance.addDevice.suscribe((evt) => {
+      console.log("called add")
+      this.add()
+    })
+  }
+
   
 }

@@ -13,8 +13,6 @@ import { isNullOrUndefined } from 'util';
 import { ToastrModule } from 'ngx-toastr';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-import { NgxIndexedDBModule, DBConfig } from 'ngx-indexed-db';
-import { DBSchema } from 'idb';
 
 const JWT_Module_Options: JwtModuleOptions = {
   config: {
@@ -26,48 +24,8 @@ const JWT_Module_Options: JwtModuleOptions = {
   }
 };
 
-/*  const dbConfig: DBConfig  = {
-  name: 'scada_db',
-  version: 1,
-  objectStoresMeta: [
-    {
-    store: 'Drivers',
-    storeConfig: { keyPath: 'id', autoIncrement: true},
-    storeSchema: [
-      { name: 'UnicID', keypath: 'Id', options: { unique: true } },
-      { name: 'Nombre', keypath: 'Id', options: { unique: false }},
-      { name: 'IsEmpty', keypath: 'DriversCount', options: { unique: false }},
-      { name: 'Time', keypath: 'Nombre', options: { unique: false }},
-      { name: 'X', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Y', keypath: 'Nombre', options: { unique: false }},
-      { name: 'ID', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Token', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Image', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Variables', keypath: 'Nombre', options: { unique: false }},
-      { name: 'LastUpdate', keypath: 'Nombre', options: { unique: false }},
-    ]
-  },
-  {
-  store: 'Info',
-    storeConfig: { keyPath: 'id', autoIncrement: true},
-    storeSchema: [
-      { name: 'UnicID', keypath: 'Id', options: { unique: true } },
-      { name: 'Nombre', keypath: 'Id', options: { unique: false }},
-      { name: 'IsEmpty', keypath: 'DriversCount', options: { unique: false }},
-      { name: 'Time', keypath: 'Nombre', options: { unique: false }},
-      { name: 'X', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Y', keypath: 'Nombre', options: { unique: false }},
-      { name: 'ID', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Token', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Image', keypath: 'Nombre', options: { unique: false }},
-      { name: 'Variables', keypath: 'Nombre', options: { unique: false }},
-      { name: 'LastUpdate', keypath: 'Nombre', options: { unique: false }},
-    ]
-}]
-}; */
-
 export function tokenGetter(){
-  return Crypter.getItem("SESSION") != null ? Crypter.getItem("SESSION")["access_token"] : null
+  return Crypter.getItem("SESSION") != null ? Crypter.getItem("SESSION")["access_token"] : undefined
 }
  
 @NgModule({
@@ -82,7 +40,8 @@ export function tokenGetter(){
     JwtModule.forRoot(JWT_Module_Options),
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [{provide:BREAKPOINT,useValue:DEFAULT_BREAKPOINTS,multi:true}, TimerService, Crypter ],
   bootstrap: [AppComponent]

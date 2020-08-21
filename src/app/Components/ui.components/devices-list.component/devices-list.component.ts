@@ -3,6 +3,7 @@ import { Workspace } from 'src/models/workspace';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { Dispositivo } from 'src/models/workspace';
+import { Event } from 'src/models/event';
 
 export interface PeriodicElement {
   name: string;
@@ -38,10 +39,11 @@ export class DevicesListComponent implements OnInit {
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','time','menu'];
   dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA)
+  addDevice = new Event<null>();
 
   ngOnInit(): void {
-    console.log(this.workspace)
     this.dataSource.paginator = this.paginator;
   }
+
 
 }

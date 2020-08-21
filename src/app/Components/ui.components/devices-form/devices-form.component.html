@@ -1,5 +1,107 @@
-<div class="pt-2">
-    <button mat-button>
-        <mat-icon>reply</mat-icon>
-    </button>
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button> -->
+<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutAlign="center start">
+  <div fxFlex="100">
+    <button class="mt-3" mat-button (click)="back.perfom()"><mat-icon>reply</mat-icon></button>
 </div>
+  <mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Datos del dispositivo</ng-template>
+        <div fxLayoutGap="15px" fxLayoutAlign="center start">
+            <form fxFlex="100">
+                <mat-form-field><input matInput placeholder="Nombre"></mat-form-field><br>
+                <mat-form-field><input matInput placeholder="ID"></mat-form-field><br>
+                <mat-form-field><input matInput placeholder="Token"></mat-form-field><br>
+                <mat-form-field><input matInput type="number" min="0" max="360" placeholder="Tiempo"></mat-form-field> 
+            </form>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" [optional]="true">
+        <ng-template matStepLabel>Imagen</ng-template>
+        <form [formGroup]="secondFormGroup">
+            <img src="assets/images/NoImage.png">
+            <button mat-fab color="warn"  aria-label="Example icon button with a home icon">
+                <mat-icon>cloud_download</mat-icon>
+              </button>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Variables</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Confirmar</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex="100">
+        <button class="mt-3" mat-button (click)="back.perfom()"><mat-icon>reply</mat-icon></button>
+    </div>
+    <span class="fancy-font h3" fxFlex="100" fxLayoutAlign="center start">Información</span>    
+        <div class="mt-3 p-3 border" fxLayoutGap="15px" fxLayoutAlign="center start" fxFlex="50">
+            <img fxFlex="50" src="assets/images/NoImage.png" width="200px" height="250px">    
+            <form fxFlex="50">
+                <mat-label class="font-weight-bold mr-1">Nombre:</mat-label>
+                <mat-form-field>
+                    <input matInput>
+                </mat-form-field><br>
+                <mat-label class="font-weight-bold mr-1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID:</mat-label>
+                <mat-form-field>
+                    <input matInput>
+                </mat-form-field><br>
+                <mat-label class="font-weight-bold mr-1">&nbsp;&nbsp;&nbsp;Token:</mat-label>
+                <mat-form-field>
+                   <input matInput placeholder="Token">
+                </mat-form-field><br>
+                <mat-label class="font-weight-bold mr-1">Tiempo:</mat-label>
+                <mat-form-field appearance="legacy" [floatLabel]="'auto'">
+                    <input matInput type="number" min="0" max="360">
+                    <span matSuffix>segundos</span>
+                </mat-form-field> 
+            </form>
+    </div>
+</div>
+ -->
